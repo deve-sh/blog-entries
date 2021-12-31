@@ -16,7 +16,7 @@ const getAllBlogPostEntries = async () => {
 			.orderBy("createdAt", "desc")
 			.get();
 
-		let indexFileContents = `# Blog Entries - Hobnob\n\n`;
+		let indexFileContents = `# Hobnob - Blog Entries\n\n`;
 
 		for (let post of posts.docs) {
 			let postMarkdown = `# ${post.data().title}\n\n![${

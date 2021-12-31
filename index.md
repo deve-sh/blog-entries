@@ -1,31 +1,31 @@
-# Blog Entries - Hobnob
+# Hobnob - Blog Entries
 
-- [Let's Build a Buy Now Pay Later Service](lets-build-a-buy-now-pay-later-service.md)  -  Sat Dec 25 2021
-- [Solutionism - How Solving Problems is becoming a problem](solutionism-how-solving-problems-that-dont-exist-is-becoming-a-problem.md)  -  Sun Dec 05 2021
-- [The Past Is Always Rosier than the Future. Here's Why](the-past-is-always-rosier-than-the-future-here-is-why.md)  -  Wed Dec 01 2021
-- [The Beauty Of Spare Change Investing](the-beauty-of-spare-change-investing.md)  -  Sun Nov 14 2021
-- [Let's Build A Digital Wallet From Scratch](lets_build_a_digital_wallet_from_scratch.md)  -  Sun Oct 31 2021
-- [The Beauty Of Picking Less but Picking Winners](the-beauty-of-picking-less-but-picking-winners.md)  -  Fri Oct 15 2021
-- [Switching From Early Stage Startup To A Big Tech Company](switching-from-startup-to-big-tech-company.md)  -  Mon Oct 04 2021
-- [You Don't Need A Lot](you-dont-need-a-lot.md)  -  Thu Sep 23 2021
-- [Shut Up And Wait!](shut_up_and_wait.md)  -  Mon Sep 13 2021
-- [Let's Build an OAuth Provider](lets-build-an-oauth-provider.md)  -  Wed Aug 25 2021
-- [Let's Build Redux From Scratch](lets-create-redux-from-scratch-in-two-languages.md)  -  Mon Aug 16 2021
-- [Let's Build A Slack Extension](lets_build_a_slack_extension.md)  -  Mon Aug 09 2021
-- [The most common issue you'll run into with React! State Closures.](the_most_common_issue_youll_run_into_with_javascript.md)  -  Fri Aug 06 2021
-- [Big Tech Will Either Fail Eventually or Swallow Everything!](big-tech-will-either-fail-eventually-or-swallow-everything.md)  -  Mon Jun 14 2021
-- [What's OAuth and why it is awesome!](what-is-oauth-and-why-it-is-awesome.md)  -  Sat Jun 12 2021
-- [Want to have leverage? Be irreplaceable.](want-to-have-leverage-be-irreplaceable.md)  -  Tue May 18 2021
-- [Don't Lock Yourself](dont_lock_yourself.md)  -  Tue May 04 2021
-- [Keep Your Products Simple.](keep_your_products_simple.md)  -  Sun Apr 11 2021
-- [Your business decisions are going to change!](your_business_decisions_are_going_to_change.md)  -  Sat Mar 27 2021
-- [You just need to be one step ahead!](you-just-have-to-be-one-step-ahead.md)  -  Thu Mar 11 2021
-- [Don't over-hire developers.](dont-overhire-developers.md)  -  Thu Feb 18 2021
-- [You're not building something new if you have enough time.](youre-not-building-something-new-if-you-have-enough-time.md)  -  Tue Feb 16 2021
-- [Don't sell software before you have created it.](dont_sell_software_before_creating_it.md)  -  Sun Feb 14 2021
-- [Features I Wish Firebase Had](features_i_wish_firebase_had.md)  -  Sun Jan 17 2021
-- [Solving Problems. One Day at a Time.](solving-problems-one-day-at-a-time.md)  -  Wed Dec 09 2020
-- [Coding Is Not For Everybody.](coding-is-not-for-everybody.md)  -  Thu Oct 15 2020
-- [You shouldn't be chasing perfection in projects.](you-shouldnt-be-chasing-perfection-in-projects.md)  -  Sat Aug 15 2020
-- [Just a Tech Degree won’t work! Here is what will.](a-tech-degree-wont-make-you-rich-here-is-what-will.md)  -  Sat Mar 21 2020
-- [College. Really?](college-really.md)  -  Tue Mar 17 2020
+- [Let's Build a Buy Now Pay Later Service](lets-build-a-buy-now-pay-later-service.md) - Sat Dec 25 2021
+- [Solutionism - How Solving Problems is becoming a problem](solutionism-how-solving-problems-that-dont-exist-is-becoming-a-problem.md) - Sun Dec 05 2021
+- [The Past Is Always Rosier than the Future. Here's Why](the-past-is-always-rosier-than-the-future-here-is-why.md) - Wed Dec 01 2021
+- [The Beauty Of Spare Change Investing](the-beauty-of-spare-change-investing.md) - Sun Nov 14 2021
+- [Let's Build A Digital Wallet From Scratch](lets_build_a_digital_wallet_from_scratch.md) - Sun Oct 31 2021
+- [The Beauty Of Picking Less but Picking Winners](the-beauty-of-picking-less-but-picking-winners.md) - Fri Oct 15 2021
+- [Switching From Early Stage Startup To A Big Tech Company](switching-from-startup-to-big-tech-company.md) - Mon Oct 04 2021
+- [You Don't Need A Lot](you-dont-need-a-lot.md) - Thu Sep 23 2021
+- [Shut Up And Wait!](shut_up_and_wait.md) - Mon Sep 13 2021
+- [Let's Build an OAuth Provider](lets-build-an-oauth-provider.md) - Wed Aug 25 2021
+- [Let's Build Redux From Scratch](lets-create-redux-from-scratch-in-two-languages.md) - Mon Aug 16 2021
+- [Let's Build A Slack Extension](lets_build_a_slack_extension.md) - Mon Aug 09 2021
+- [The most common issue you'll run into with React! State Closures.](the_most_common_issue_youll_run_into_with_javascript.md) - Fri Aug 06 2021
+- [Big Tech Will Either Fail Eventually or Swallow Everything!](big-tech-will-either-fail-eventually-or-swallow-everything.md) - Mon Jun 14 2021
+- [What's OAuth and why it is awesome!](what-is-oauth-and-why-it-is-awesome.md) - Sat Jun 12 2021
+- [Want to have leverage? Be irreplaceable.](want-to-have-leverage-be-irreplaceable.md) - Tue May 18 2021
+- [Don't Lock Yourself](dont_lock_yourself.md) - Tue May 04 2021
+- [Keep Your Products Simple.](keep_your_products_simple.md) - Sun Apr 11 2021
+- [Your business decisions are going to change!](your_business_decisions_are_going_to_change.md) - Sat Mar 27 2021
+- [You just need to be one step ahead!](you-just-have-to-be-one-step-ahead.md) - Thu Mar 11 2021
+- [Don't over-hire developers.](dont-overhire-developers.md) - Thu Feb 18 2021
+- [You're not building something new if you have enough time.](youre-not-building-something-new-if-you-have-enough-time.md) - Tue Feb 16 2021
+- [Don't sell software before you have created it.](dont_sell_software_before_creating_it.md) - Sun Feb 14 2021
+- [Features I Wish Firebase Had](features_i_wish_firebase_had.md) - Sun Jan 17 2021
+- [Solving Problems. One Day at a Time.](solving-problems-one-day-at-a-time.md) - Wed Dec 09 2020
+- [Coding Is Not For Everybody.](coding-is-not-for-everybody.md) - Thu Oct 15 2020
+- [You shouldn't be chasing perfection in projects.](you-shouldnt-be-chasing-perfection-in-projects.md) - Sat Aug 15 2020
+- [Just a Tech Degree won’t work! Here is what will.](a-tech-degree-wont-make-you-rich-here-is-what-will.md) - Sat Mar 21 2020
+- [College. Really?](college-really.md) - Tue Mar 17 2020
