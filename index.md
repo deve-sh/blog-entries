@@ -1,6 +1,6 @@
 # Hobnob - Blog Entries
 
-- [Building a Zero To One Product](/building-a-zero-to-one-product) - Mon Jan 03 2022
+- [Building a Zero To One Product](building-a-zero-to-one-product) - Mon Jan 03 2022
 - [Let's Build a Buy Now Pay Later Service](lets-build-a-buy-now-pay-later-service.md) - Sat Dec 25 2021
 - [Solutionism - How Solving Problems is becoming a problem](solutionism-how-solving-problems-that-dont-exist-is-becoming-a-problem.md) - Sun Dec 05 2021
 - [The Past Is Always Rosier than the Future. Here's Why](the-past-is-always-rosier-than-the-future-here-is-why.md) - Wed Dec 01 2021
