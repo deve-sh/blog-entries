@@ -1,6 +1,6 @@
 # Creating Our Own JavaScript Call, Apply And Bind Functions
 
-![Photo by Alex Azabache from Pexels](https://firebasestorage.googleapis.com/v0/b/devesh-blog-3fbfc.appspot.com/o/postimages%2Fdont_lock_yourself%2Fprimaryimage.jpg?alt=media&token=73f28c14-5ff8-4cdb-bd85-bcc7c368abac)
+![Photo By Pixabay from Pexels](https://firebasestorage.googleapis.com/v0/b/devesh-blog-3fbfc.appspot.com/o/postimages%2Fcreating-our-own-javascript-call-apply-bind-functions%2Fprimaryimage.jpg?alt=media&token=8d134bf8-0099-4a55-bc69-257d650a6c7a)
 
 The `call`, `apply` and `bind` functions are extremely helpful functions in JavaScript that allow us to bind and invoke functions with a different execution context, attach their value of `this` to an object of our preference.
 
