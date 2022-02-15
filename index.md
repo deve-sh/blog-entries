@@ -1,5 +1,6 @@
 # Hobnob - Blog Entries
 
+- [Building a Static Site Generator](building-a-static-site-generator) - Wed Feb 08 2022
 - [Performance Optimization With Promises In JavaScript](performance-optimization-with-promises-in-javascript) - Wed Feb 02 2022
 - [Creating Our Own JavaScript Call, Apply And Bind Functions](creating-our-own-javascript-call-apply-bind-functions) - Fri Jan 21 2022
 - [Building a Zero To One Product](building-a-zero-to-one-product) - Mon Jan 03 2022
