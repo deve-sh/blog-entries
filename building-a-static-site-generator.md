@@ -2,7 +2,6 @@
 
 ![Photo by Tranmautritam from Pexels](https://firebasestorage.googleapis.com/v0/b/devesh-blog-3fbfc.appspot.com/o/postimages%2Fbuilding-a-static-site-generator%2Fprimaryimage.jpg?alt=media&token=9fab02f4-80d3-46a7-a267-b58844a7e3e4)
 
-
 I'm a fan of Next.js and Gatsby, both great options for building static sites and dynamic server-rendered sites as well. So I decided I'll give my own site generator a try.
 
 Let's call it **Stratify**, for some reason. We'll build it as a command-line interface. You can check it out [on GitHub](https://github.com/deve-sh/stratify) or even install it on your own system using [npm](https://npmjs.com/package/stratify-web).
@@ -63,13 +62,14 @@ An example of a template would be:
 ```html
 <html>
 	<head>
-		<title>{{ title }}</title>
+		<title>\{\{ title \}\}</title>
 	</head>
 	<body>
-		{{ content }}
+		\{\{ content \}\}
 	</body>
 </html>
 ```
+
 We inject the conversion output from the markdown file in place of `{{ content }}` and the title of the page in place of `{{ title }}`. The user can simply add any additional meta tags, scripts, stylesheets they need in this file and they will be included in the build output.
 
 ### Static Files
@@ -200,7 +200,7 @@ function start() {
 
 	if (dirExists(path.resolve(process.cwd(), "./build"))) {
 		const { execSync } = require("child_process");
-		execSync("npx serve build", { stdio: "inherit" });    // stdio: inherit means all the input output will be of the command that execSync is running.
+		execSync("npx serve build", { stdio: "inherit" }); // stdio: inherit means all the input output will be of the command that execSync is running.
 	} else
 		console.log(
 			"There is no build folder. Run npm run build to build your pages."
@@ -212,9 +212,10 @@ module.exports = start;
 
 ### Putting it all together
 
-Since we now have all functionality required in order to develop, build and serve  a static website generated using Markdown. We can setup the scripts interface, which will actually make `stratify dev`, `stratify build` and `stratify start` work.
+Since we now have all functionality required in order to develop, build and serve a static website generated using Markdown. We can setup the scripts interface, which will actually make `stratify dev`, `stratify build` and `stratify start` work.
 
 `scripts/index.js`:
+
 ```javascript
 #!/usr/bin/env node
 
