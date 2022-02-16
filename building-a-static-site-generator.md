@@ -70,7 +70,7 @@ An example of a template would be:
 </html>
 ```
 
-We inject the conversion output from the markdown file in place of `{{ content }}` and the title of the page in place of `{{ title }}`. The user can simply add any additional meta tags, scripts, stylesheets they need in this file and they will be included in the build output.
+We inject the conversion output from the markdown file in place of `\{\{ content \}\}` and the title of the page in place of `\{\{ title \}\}`. The user can simply add any additional meta tags, scripts, stylesheets they need in this file and they will be included in the build output.
 
 ### Static Files
 
@@ -114,8 +114,8 @@ const buildPage = async ({ fileName, directory }, buildFolder) => {
 			`${buildFolder}/${pageName}.html`,
 			// Replace the  {{ content }} block with the converted markdown HTML
 			template
-				.replace("{{ content }}", convertedHTML)
-				.replace("{{ title }}", title)
+				.replace("\\{\\{ content \\}\\}", convertedHTML)
+				.replace("\\{\\{ title \\}\\}", title)
 		);
 	else fs.writeFileSync(`${buildFolder}/${pageName}.html`, convertedHTML);
 };
