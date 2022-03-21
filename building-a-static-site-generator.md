@@ -1,6 +1,6 @@
 # Building a Static Site Generator
 
-![Photo by Tranmautritam from Pexels](https://firebasestorage.googleapis.com/v0/b/devesh-blog-3fbfc.appspot.com/o/postimages%2Fbuilding-a-static-site-generator%2Fprimaryimage.jpg?alt=media&token=9fab02f4-80d3-46a7-a267-b58844a7e3e4)
+![The Stratify Logo I designed in 1 sitting, cool isn't it?](https://firebasestorage.googleapis.com/v0/b/devesh-blog-3fbfc.appspot.com/o/postimages%2Fbuilding-a-static-site-generator%2Fprimaryimage.jpg?alt=media&token=af97b450-71ec-4380-a931-dd17b4c5374b)
 
 I'm a fan of Next.js and Gatsby, both great options for building static sites and dynamic server-rendered sites as well. So I decided I'll give my own site generator a try.
 
