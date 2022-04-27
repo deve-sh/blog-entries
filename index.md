@@ -1,5 +1,6 @@
 # Hobnob - Blog Entries
 
+- [Today's Customer Acquisition Mechanisms Are Flawed](todays-customer-acquisition-mechanisms-are-flawed) - Thu Apr 2022
 - [All You Need For Your First 100000 Users](all-you-need-for-your-first-hundred-thousand-users) - Wed Mar 23 2022
 - [How Next.js Renders Your React App](how-nextjs-renders-your-react-app) - Sat Mar 12 2022
 - [You Can't Move Fast Without Breaking Things](you-cant-move-fast-without-breaking-things) - Fri Feb 25 2022
