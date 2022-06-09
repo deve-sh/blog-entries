@@ -1,5 +1,6 @@
 # Hobnob - Blog Entries
 
+- [Creating Staging/Preview Build for Firebase Cloud Functions](creating-staging-or-preview-builds-for-firebase-cloud-functions) - Sun Jun 05 2022
 - [Framework for creating Isomorphic React Apps](framework-for-creating-isomorphic-react-apps) - Thu May 26 2022
 - [What are Webhooks? How do I use one?](what-are-webhooks-and-how-do-i-use-one) - Mon May 09 2022
 - [Today's Customer Acquisition Mechanisms Are Flawed](todays-customer-acquisition-mechanisms-are-flawed) - Thu Apr 21 2022
