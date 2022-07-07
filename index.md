@@ -1,5 +1,6 @@
 # Hobnob - Blog Entries
 
+- [Alt - Enabling UPI QRs with Payment Gateways](alt-enabling-upi-qrs-to-pay-via-any-payment-method) - Thu Jun 30 2022
 - [Creating Staging/Preview Build for Firebase Cloud Functions](creating-staging-or-preview-builds-for-firebase-cloud-functions) - Sun Jun 05 2022
 - [Upping Your Software Engineering Game](upping-your-software-engineering-game) - Sat May 28 2022
 - [Framework for creating Isomorphic React Apps](framework-for-creating-isomorphic-react-apps) - Thu May 26 2022
