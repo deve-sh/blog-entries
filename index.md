@@ -1,5 +1,6 @@
 # Hobnob - Blog Entries
 
+- [Getting Notified When Your Cloud Functions Deploy](getting-notified-when-your-cloud-functions-deploy) - Sat Aug 06 2022
 - [Alt - Enabling UPI QRs with Payment Gateways](alt-enabling-upi-qrs-to-pay-via-any-payment-method) - Thu Jun 30 2022
 - [Creating Staging/Preview Build for Firebase Cloud Functions](creating-staging-or-preview-builds-for-firebase-cloud-functions) - Sun Jun 05 2022
 - [Upping Your Software Engineering Game](upping-your-software-engineering-game) - Sat May 28 2022
