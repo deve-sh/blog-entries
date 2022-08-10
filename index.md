@@ -1,5 +1,6 @@
 # Hobnob - Blog Entries
 
+- [The Most Beautiful Thing In Programming](the-most-beautiful-thing-in-programming) - Sat Aug 04 2022
 - [Getting Notified When Your Cloud Functions Deploy](getting-notified-when-your-cloud-functions-deploy) - Sat Aug 06 2022
 - [Alt - Enabling UPI QRs with Payment Gateways](alt-enabling-upi-qrs-to-pay-via-any-payment-method) - Thu Jun 30 2022
 - [Creating Staging/Preview Build for Firebase Cloud Functions](creating-staging-or-preview-builds-for-firebase-cloud-functions) - Sun Jun 05 2022
