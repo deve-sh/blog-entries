@@ -1,2 +1,7 @@
 name: "Hobnob - Blog Entries"
 title: null
+exclude:
+  - generateBlogPostEntry.js
+  - getAllBlogPostEntries.js
+  - package.json
+  - package-lock.json
