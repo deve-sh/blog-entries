@@ -1,5 +1,6 @@
 # Hobnob - Blog Entries
 
+- [Using BigQuery for Your Application and User Logs](using-bigquery-for-your-application-user-logs.md)  -  Sun Aug 28 2022
 - [Know This Before You Choose MongoDB Atlas Serverless](know-this-before-you-choose-mongodb-atlas-serverless.md)  -  Sun Aug 28 2022
 - [The Most Beautiful Thing In Programming](the-most-beautiful-thing-in-programming) - Sat Aug 04 2022
 - [Getting Notified When Your Cloud Functions Deploy](getting-notified-when-your-cloud-functions-deploy) - Sat Aug 06 2022
