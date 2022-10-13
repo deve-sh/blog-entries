@@ -24,58 +24,64 @@ SWR From Vercel is a simple React Library that provides you with hooks, that mim
 
 Essentially, SWR creates a global cross-application cache and returns data from there while data is being invalidated. This way, in a specific amount of time, data is fetched only once and served across the application reactively.
 
-This might not seem like a big deal, but the common pattern used in a lot of codebases like the one below has an inherent problem: There is no connection related to data fetching between multiple components and hence you either have to add manual checks yourself to ensure you don't make API Calls for the same data. 
+This might not seem like a big deal, but the common pattern used in a lot of codebases like the one below has an inherent problem: There is no connection related to data fetching between multiple components and hence you either have to add manual checks yourself to ensure you don't make API Calls for the same data.
 
 You could always use a state-management library like Redux or Zustand to store data in a global store, but that requires you to set those tools up manually too.
 
 ```javascript
 const ComponentOne = (props) => {
-    const [data, setData] = useState(props.data || null);
-    useEffect(() => {
-        if(!data) refetchData();
-    }, []);
-}
+	const [data, setData] = useState(props.data || null);
+	useEffect(() => {
+		if (!data) refetchData();
+	}, []);
+};
 
 const ComponentTwo = () => {
-    const [data, setData] = useState(props.data || null);
-    useEffect(() => {
-        if(!data) refetchData();   // How do you ensure that this does not cause duplicate API Calls? You can't.
-    }, []);
-}
+	const [data, setData] = useState(props.data || null);
+	useEffect(() => {
+		if (!data) refetchData(); // How do you ensure that this does not cause duplicate API Calls? You can't.
+	}, []);
+};
 
 const ContainerComponent = () => {
-    // Will cause two duplicate calls
-    return <>
-        <ComponentOne />
-        <ComponentTwo />
-    </>
-}
+	// Will cause two duplicate calls
+	return (
+		<>
+			<ComponentOne />
+			<ComponentTwo />
+		</>
+	);
+};
 ```
 
 Enter SWR:
+
 ```javascript
 const ComponentOne = (props) => {
-    const { data } = useSWR("/api/v1/data");
-}
+	const { data } = useSWR("/api/v1/data");
+};
 
 const ComponentTwo = () => {
-    const { data } = useSWR("/api/v1/data");
-}
+	const { data } = useSWR("/api/v1/data");
+};
 
 const ContainerComponent = () => {
-    // No duplicate calls
-    return <>
-        <ComponentOne />
-        <ComponentTwo />
-    </>
-}
+	// No duplicate calls
+	return (
+		<>
+			<ComponentOne />
+			<ComponentTwo />
+		</>
+	);
+};
 ```
 
 The data is shared between ComponentOne and Two automatically thanks to SWR.
 
 Apart from that, SWR takes care of a ton of other things, like:
+
 - Real-time application-wide updates
-- Fallback data for 
+- Fallback data for
 - Error handling
 - Pagination and Infinite Loading
 - No prop-drilling, all data is accessible across the app via a `key` that uniquely identifies your data. Most of the time this `key` is the URL you want to fetch data from.
@@ -89,6 +95,7 @@ Let's first list down what we'll be creating and the requirements we have:
 Our simple `useFetch` hook will mimic some of the capabilities of the library hook: `useSWR`.
 
 Some of the functionalities we'll be implementing include:
+
 - A global common cache, error and fetching states.
 - Revalidation of data on the component mount.
 - Revalidation of data on focus.
@@ -107,16 +114,16 @@ But the way React gets notified to re-render based on some change is not as some
 const [stateVariable, setStateVariable] = useState(0);
 
 useEffect(() => {
-    stateVariable = 1;  // Does not cause a re-render
-    setStateVariable(1);    // Causes a re-render
+	stateVariable = 1; // Does not cause a re-render
+	setStateVariable(1); // Causes a re-render
 }, []);
 
 return <>{stateVariable}</>;
 ```
 
-React does not automatically know of value updates to any variable, it is only when you explicitly tell React that you've changed a value that it starts re-rendering. I.E: Our ` setStateVariable ` function first updates the value of `stateVariable` and then tells React to trigger a re-render. Something that wouldn't be possible if you just assigned a value to the variable as React would have no way to know its value changed.
+React does not automatically know of value updates to any variable, it is only when you explicitly tell React that you've changed a value that it starts re-rendering. I.E: Our `setStateVariable` function first updates the value of `stateVariable` and then tells React to trigger a re-render. Something that wouldn't be possible if you just assigned a value to the variable as React would have no way to know its value changed.
 
-Even in frameworks like [Svelte](https://svelte.dev/), were just [assigning to a variable is reactive](https://svelte.dev/tutorial/reactive-declarations), you have the *illusion of reactivity* using the `$` symbol, all Svelte is doing is creating [getters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get) and [setters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set) behind the scenes (It's a compiler so it has all the means to do that) for that variable, so anytime a variable is assigned to, it will trigger a re-render.
+Even in frameworks like [Svelte](https://svelte.dev/), were just [assigning to a variable is reactive](https://svelte.dev/tutorial/reactive-declarations), you have the _illusion of reactivity_ using the `$` symbol, all Svelte is doing is creating [getters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get) and [setters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set) behind the scenes (It's a compiler so it has all the means to do that) for that variable, so anytime a variable is assigned to, it will trigger a re-render.
 
 Now, with SWR and our `useFetch` hook both promising reactivity, we can depend on two ways to achieve it:
 
@@ -132,7 +139,10 @@ We could use libraries like Zustand or Redux to achieve the same, but for making
 
 ```javascript
 // Ref: https://reactjs.org/docs/hooks-reference.html#usesyncexternalstore
-const state = useSyncExternalStore(subscriberFunction, getYourFieldOrEntireStore);
+const state = useSyncExternalStore(
+	subscriberFunction,
+	getYourFieldOrEntireStore
+);
 ```
 
 How we create our store and integrate that with `useSyncExternalStore` is coming up in the following sections.
@@ -143,7 +153,7 @@ Let's start with the most basic feature that our hook will support, an app-wide/
 
 For that, we'll create a function called `GlobalCache` that will have a cache Map, where each key-value pair is the key passed to useFetch and the data fetched from the API.
 
-Along with that, it will contain a list of subscribers/listeners and an unsubscribe function that removes a listener. 
+Along with that, it will contain a list of subscribers/listeners and an unsubscribe function that removes a listener.
 
 The listener here is the function that `useSyncExternalStore` passes to our store, every time we update our cache store, we'll iterate over all the listeners we have and notify them of the updated contents of our cache. This is essentially how Reactivity in React and other libraries like RxJS works.
 
@@ -168,7 +178,7 @@ const GlobalCache = () => {
 			cache.set(key, value);
 			// Send signal of update to subscribers for key.
 			cacheSubscribers.forEach((listenerFunc) => listenerFunc(cache));
-		}
+		},
 	};
 };
 
@@ -185,10 +195,11 @@ In case the user does not pass a fetcher, we will create a default fetcher ourse
 
 ```javascript
 // src/Provider/defaultFetcher.js
-const defaultFetcher = (key) => fetch(key).then((res) => {
-	if (!res.ok) throw new Error("Error in request for key: " + key);
-	return res.json();
-});
+const defaultFetcher = (key) =>
+	fetch(key).then((res) => {
+		if (!res.ok) throw new Error("Error in request for key: " + key);
+		return res.json();
+	});
 export default defaultFetcher;
 ```
 
@@ -197,9 +208,10 @@ export default defaultFetcher;
 Before we get to the `useFetch` hook, let's create a `FetchProvider` context for the consumers of our library to use to set a common config for all `useFetch` hooks inside them.
 
 For Example:
+
 ```javascript
-<FetchConfig value={{ 
-    revalidateOnMount: true, 
+<FetchConfig value={{
+    revalidateOnMount: true,
     revalidateOnFocus: false,
     fetcher: (key) => ...,
     fallback: {
@@ -275,7 +287,7 @@ export const defaultProviderValue = {
 	dedupingInterval: 2000,
 	onSuccess: undefined,
 	onError: undefined,
-	fetcher: defaultFetcher
+	fetcher: defaultFetcher,
 };
 
 export default defaultProviderValue;
@@ -293,7 +305,7 @@ import { useSyncExternalStore } from "use-sync-external-store/shim";
 import globalProvider from "./Provider/DefaultGlobalProvider";
 import { useFetchContext } from "./Provider/useFetchContext";
 
-const useFetch = (key, options = { }) => {
+const useFetch = (key, options = {}) => {
 	const wrappedContext = useFetchContext();
 
 	const contextToReferTo = wrappedContext || globalProvider;
@@ -403,6 +415,7 @@ The function takes the function or value to update and a boolean that tells it w
 ### Handling options
 
 All the following options we discuss can be passed in 3 ways to the hook:
+
 - Via the `options` argument to `useFetch`.
 - Via the Context Provider.
 - If none of the above is used, we fall back to the default values for those options.
@@ -418,17 +431,18 @@ const revalidateOnMount = resolveIfNotUndefined(
 );
 
 useEffect(() => {
-    if (revalidateOnMount) fetchData();
+	if (revalidateOnMount) fetchData();
 }, [revalidateOnMount]);
 ```
 
-**2. Handling `fallbackData`  for SSR and SSG**
+**2. Handling `fallbackData` for SSR and SSG**
 
 Similar to `revalidateOnMount` we can support fallback data for server-side rendering and static site generation, or just in case an error happens while fetching.
 
 [Look at the server-side rendering use-case for SWR here](https://swr.vercel.app/docs/with-nextjs#pre-rendering-with-default-data).
 
 It can be passed to the hook in two ways only:
+
 - Via the `fallback` value in a Context Provider.
 - Via the `fallbackData` key of the hook's options argument.
 
@@ -464,19 +478,21 @@ First, let's look at the first case: Deduping of a request to an endpoint being 
 
 ```javascript
 const ChildComp1 = () => {
-   const { data } = useFetch("/api/v1/data");
-}
+	const { data } = useFetch("/api/v1/data");
+};
 
 const ChildComp2 = () => {
-   const { data } = useFetch("/api/v1/data");
-}
+	const { data } = useFetch("/api/v1/data");
+};
 
 const ParentComp = () => {
-  return <>
-    <ChildComp1 />
-    <ChildComp2 />
-  </>;
-}
+	return (
+		<>
+			<ChildComp1 />
+			<ChildComp2 />
+		</>
+	);
+};
 ```
 
 In the above, both components containing a reference to `useFetch` are called at the same level during the same render, both will trigger an API Call to `/api/v1/data`.
@@ -491,13 +507,13 @@ Let's add a new function that tells us whether the API call can go or not.
 
 ```javascript
 const allowedToFetchData = (isFromRevalidate = false) => {
-    if (!isKeyFetchable) return false;
+	if (!isKeyFetchable) return false;
 
-    const isCurrentlyFetching = fetchingFor.get(key);  // This will be updated synchronously by any other hook with the same key that might have started fetching already.
-    if(isCurrentlyFetching) return false;
-    
-    return true;
-}
+	const isCurrentlyFetching = fetchingFor.get(key); // This will be updated synchronously by any other hook with the same key that might have started fetching already.
+	if (isCurrentlyFetching) return false;
+
+	return true;
+};
 ```
 
 ```diff
@@ -555,7 +571,7 @@ So we'll use a pattern similar to the deduping of requests.
 ![image.png](https://firebasestorage.googleapis.com/v0/b/devesh-blog-3fbfc.appspot.com/o/postimages%2Fcreating-our-own-swr%2Fsecondaryimages%2Fimage1665583273006.png?alt=media&token=196754d0-0d17-40c6-aba9-85d93ac65cfe)
 
 Unlike other maps, we'll have this exclusively to the top most global provider and not to the context provider, the reason for that being that we don't want multiple focus event handlers for the same key just because the hooks have been wrapped by multiple context providers through multiple levels of the
- component tree.
+component tree.
 
 We'll start by creating a map of the keys the event has been set for and adding it to our default global provider.
 
@@ -608,18 +624,18 @@ The handling for that's pretty simple. Just to clarify, there's no `onError` and
 
 ```javascript
 const { onSuccess, onError } = useMemo(
-	() => ({ onSuccess: options.onSuccess, onError: options.onError, }),
+	() => ({ onSuccess: options.onSuccess, onError: options.onError }),
 	[options]
 );
 
 useEffect(() => {
-    if (data !== undefined && typeof onSuccess === "function")
-        onSuccess(data, key, options);
+	if (data !== undefined && typeof onSuccess === "function")
+		onSuccess(data, key, options);
 }, [data]);
 
 useEffect(() => {
-    if (error !== undefined && typeof onError === "function")
-        onError(error as Error, key, options);
+	if (error !== undefined && typeof onError === "function")
+		onError(error, key, options);
 }, [error]);
 ```
 
@@ -635,7 +651,7 @@ const {
 	dedupingInterval,
 	revalidateOnMount,
 	revalidateOnFocus,
-	revalidate
+	revalidate,
 } = useFetchConfig();
 ```
 
@@ -661,9 +677,9 @@ Well, that was easy. Now onto creating the `revalidate` function, some usage det
 
 ```javascript
 const { revalidate } = useFetchConfig();
-revalidate("/api/v1/data");  // Just revalidate and update the cache
-revalidate("/api/v1/data", data);  // Set `data` first, then fetch in the background and update the cache.
-revalidate("/api/v1/data", data, false);  // Set `data` but do not fetch in the background.
+revalidate("/api/v1/data"); // Just revalidate and update the cache
+revalidate("/api/v1/data", data); // Set `data` first, then fetch in the background and update the cache.
+revalidate("/api/v1/data", data, false); // Set `data` but do not fetch in the background.
 ```
 
 For this, we have a simple technique:
@@ -699,12 +715,14 @@ return {
 ### Writing Tests
 
 In the end, before publishing the package, we should set up some automated testing mechanisms to ensure:
+
 - Our library and all its components work as expected
 - A new change we make does not break any existing expected flow.
 
 To do so, we'll be using [Jest](https://jestjs.io/) and [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/). Jest as the test environment and React Testing Library for rendering our components with the `useFetch` hook to test out multiple cases.
 
 Some major cases we might want to cover with our tests:
+
 - Basics: useFetch is always a function and expects at least one argument: The `key`. This core API Contract should never break due to accidental export statement changes or function signature changes.
 - Custom Fetchers work for our hook as expected.
 - Real-time fetching works and deduplication of requests happen as expected.
