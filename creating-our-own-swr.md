@@ -96,6 +96,12 @@ Our simple `useFetch` hook will mimic some of the capabilities of the library ho
 
 Some of the functionalities we'll be implementing include:
 
+- A simple data fetching expression similar to `useSWR` with error, fetching and data states along with a `revalidate` function to trigger a refetch for the data.
+
+```javascript
+const { data, error, isValidating, revalidate } = useFetch(key);
+```
+
 - A global common cache, error and fetching states.
 - Revalidation of data on the component mount.
 - Revalidation of data on focus.
@@ -477,19 +483,19 @@ SWR takes care of both of the above cases, and there are very clever ways to han
 First, let's look at the first case: Deduping of a request to an endpoint being made at the same time. This is most often caused by two or more `useFetch` hooks being called with a `key` very close in time to each other. Consider the scenario below:
 
 ```javascript
-const ChildComp1 = () => {
+const ComponentOne = () => {
 	const { data } = useFetch("/api/v1/data");
 };
 
-const ChildComp2 = () => {
+const ComponentTwo = () => {
 	const { data } = useFetch("/api/v1/data");
 };
 
-const ParentComp = () => {
+const ContainerComponent = () => {
 	return (
 		<>
-			<ChildComp1 />
-			<ChildComp2 />
+			<ComponentOne />
+			<ComponentTwo />
 		</>
 	);
 };
@@ -497,7 +503,7 @@ const ParentComp = () => {
 
 In the above, both components containing a reference to `useFetch` are called at the same level during the same render, both will trigger an API Call to `/api/v1/data`.
 
-To prevent that, let's understand some basics. When React renders a component, the hooks are called in order, i.e: synchronously. So the hook present inside ChildComp1 will be called first, and so will the `useEffect` block inside of ChildComp1's `useFetch`.
+To prevent that, let's understand some basics. When React renders a component, the hooks are called in order, i.e: synchronously. So the hook present inside ComponentOne will be called first, and so will the `useEffect` block inside ComponentOne's `useFetch`.
 
 ![image.png](https://firebasestorage.googleapis.com/v0/b/devesh-blog-3fbfc.appspot.com/o/postimages%2Fcreating-our-own-swr%2Fsecondaryimages%2Fimage1665686794290.png?alt=media&token=680f57e7-d5d8-4a63-8b2f-925c4d760afa)
 
@@ -723,7 +729,7 @@ To do so, we'll be using [Jest](https://jestjs.io/) and [React Testing Library](
 
 Some major cases we might want to cover with our tests:
 
-- Basics: useFetch is always a function and expects at least one argument: The `key`. This core API Contract should never break due to accidental export statement changes or function signature changes.
+- Basics: `useFetch` is always a function and expects at least one argument: The `key`. This core API Contract should never break due to accidental export statement changes or function signature changes.
 - Custom Fetchers work for our hook as expected.
 - Real-time fetching works and deduplication of requests happen as expected.
 - Options such as `revalidateOnMount`, `revalidateOnFocus` and `fallbackData` work as expected.
@@ -765,6 +771,16 @@ module.exports = {
 
 To see some of the tests out of the list above implemented, check out [this directory](https://github.com/deve-sh/useFetch/tree/main/tests).
 
-### That was quite a lot
+### That was quite a lot!
 
-So we come to the end of this post, it was fun reverse-engineering SWR, although it's a fully open-source library and takes care of a ton of things. Reverse engineering and building libraries that you use every day is always a joy. I hope this post was informative and insightful.htful.
+So we come to the end of this post, it was fun reverse-engineering SWR, although it's a fully open-source library and takes care of a ton of things.
+
+It sure was a lot of information to take in at once, and no one expects all this to be done in a single day, but it also reveals how much engineering goes into something as simple as an expression like:
+
+```javascript
+const { data } = useFetch("/api/v1/data");
+```
+
+To me, the fact that this much engineering goes into making things simple for other developers is [the most beautiful thing in programming](https://blog.devesh.tech/post/the-most-beautiful-thing-in-programming).
+
+Reverse engineering and building libraries that you use every day is always a joy. I hope this post was informative and insightful.
