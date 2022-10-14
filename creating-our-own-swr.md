@@ -318,7 +318,7 @@ const useFetch = (key, options = {}) => {
 
 	const contextToReferTo = wrappedContext || globalProvider;
 
-	const isKeyFetchable = key !== null;
+	const isKeyFetchable = !!key; // If the key is falsy, don't fetch.
 
 	const fetcher = resolveIfNotUndefined(
 		options.fetcher,
