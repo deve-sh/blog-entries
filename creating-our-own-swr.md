@@ -267,7 +267,9 @@ We'll also create a `useFetchConfig` hook for internal use, all the hook does is
 import { useContext } from "react";
 import { FetchProviderContext } from "./index";
 
-export const useFetchContext = () => useContext(FetchProviderContext);
+const useFetchContext = () => useContext(FetchProviderContext);
+
+export default useFetchContext;
 ```
 
 This Provider can now be imported and used anywhere.
@@ -275,7 +277,7 @@ This Provider can now be imported and used anywhere.
 But we know `useSWR` doesn't necessarily require a global config provider, so we need to have a default provider in case our FetchProvider is not used.
 
 ```javascript
-// src/Provider/DefaultGlobalProvider.js
+// src/Provider/defaultGlobalProvider.js
 import GlobalCache from "../internals/GlobalCache";
 import GlobalErrors from "../internals/GlobalErrors";
 import GlobalFetching from "../internals/GlobalFetching";
@@ -283,7 +285,7 @@ import GlobalFetching from "../internals/GlobalFetching";
 import defaultFetcher from "./defaultFetcher";
 
 // In case a FetchProvider has not been added as a wrapper. Pick up the config from this.
-export const defaultProviderValue = {
+const defaultProviderValue = {
 	cache: GlobalCache(),
 	fetching: GlobalFetching(),
 	errors: GlobalErrors(),
@@ -308,8 +310,8 @@ Now that we have our global providers, our cache, error and fetching state maps,
 import { useEffect } from "react";
 import { useSyncExternalStore } from "use-sync-external-store/shim";
 
-import globalProvider from "./Provider/DefaultGlobalProvider";
-import { useFetchContext } from "./Provider/useFetchContext";
+import globalProvider from "./Provider/defaultGlobalProvider";
+import useFetchContext from "./Provider/useFetchContext";
 
 const useFetch = (key, options = {}) => {
 	const wrappedContext = useFetchContext();
@@ -594,7 +596,7 @@ export default GlobalFocusRevalidationEventSet;
 ```
 
 ```diff
-// src/Provider/DefaultGlobalProvider.js
+// src/Provider/defaultGlobalProvider.js
 + revalidateOnFocusEventSetFor: GlobalFocusRevalidationEventSet(),
 ```
 
