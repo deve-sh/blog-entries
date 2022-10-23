@@ -98,7 +98,7 @@ const jsonBodyParserMiddleware = (req, _, next) => {
 };
 ```
 
-#### URL Encoded Body Parser for `Content-Type: application/x-www-form-urlencoded`
+##### URL Encoded Body Parser for `Content-Type: application/x-www-form-urlencoded`
 
 This substitutes the `app.use(express.urlencoded())` middleware. URL Encoded bodies have information in the form of URL Query Params: `a=1&b=2&c=something...`.
 
@@ -122,7 +122,7 @@ const urlEncodedBodyParserMiddleware = (req, _, next) => {
 };
 ```
 
-#### File Parsing Middleware
+##### File Parsing Middleware
 
 This simple middleware would act similar to [`express-fileupload`](https://www.npmjs.com/package/express-fileupload) library that reads the file sent in the request and then attaches it to the `file` property of the request.
 
