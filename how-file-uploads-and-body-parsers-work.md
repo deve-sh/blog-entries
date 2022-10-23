@@ -1,4 +1,4 @@
-# How File Uploads and Body Parsers Work + Creating them ourselves
+# How File Uploads and Body Parsers Work
 
 ![Photo by Brett Sayles: https://www.pexels.com/photo/web-banner-with-online-information-on-computer-3803517/](https://firebasestorage.googleapis.com/v0/b/devesh-blog-3fbfc.appspot.com/o/postimages%2Fhow-file-uploads-and-body-parsers-work%2Fprimaryimage.jpg?alt=media&token=71384e74-622e-4475-80ad-27942703f593)
 
@@ -44,12 +44,14 @@ Then the body of the request can be read:
 
 ```javascript
 app.post("/uploadfile", (req, res) => {
-    req.on("data", (chunk) => {
-	// Here, the chunk is part of or all the data sent from the client to the server.
-	// Or a part of that data.
-    }).on("end", () => {
-        // Data transfer complete.
-    });
+	req
+		.on("data", (chunk) => {
+			// Here, the chunk is part of or all the data sent from the client to the server.
+			// Or a part of that data.
+		})
+		.on("end", () => {
+			// Data transfer complete.
+		});
 });
 ```
 
@@ -64,13 +66,20 @@ This is the original data that composes the file (Mainly the unreadable characte
 The `boundary` attribute in the `content-type` header for the request helps us identify the files in the body and the limits to which it has been sent (Multiple chunks could be sent to upload a single file).
 
 ![image.png](https://firebasestorage.googleapis.com/v0/b/devesh-blog-3fbfc.appspot.com/o/postimages%2Fhow-file-uploads-and-body-parsers-work%2Fsecondaryimages%2Fimage1666440187390.png?alt=media&token=13e973ed-df51-4bd7-8b5d-5210ff797ade)
+
 ![image.png](https://firebasestorage.googleapis.com/v0/b/devesh-blog-3fbfc.appspot.com/o/postimages%2Fhow-file-uploads-and-body-parsers-work%2Fsecondaryimages%2Fimage1666440051617.png?alt=media&token=19a492c2-8165-4238-a861-62e6f23052e3)
 
 For other kinds of data like JSON or URL Encoded information, the data is a simple string which can be parsed accordingly.
 
 ### Let's Create Our Body Parsing and File Parsing middlewares for Express
 
-#### A JSON Body Parsing Middleware for `Content-Type: application/json`
+Now that we have an understanding of how file uploads and request bodies work, we can work on creating the middleware that we use day to day in our Node.js projects from scratch.
+
+##### A JSON Body Parsing Middleware for `Content-Type: application/json`
+
+As mentioned earlier, request bodies are simply sent as text, which can then be parsed using `JSON.parse` if they are JSON. We can identify if the body being sent to the server is of type JSON using the `Content-Type` header.
+
+The following middleware substitutes the `app.use(express.json())` middleware.
 
 ```javascript
 const jsonBodyParserMiddleware = (req, _, next) => {
@@ -91,7 +100,7 @@ const jsonBodyParserMiddleware = (req, _, next) => {
 
 #### URL Encoded Body Parser for `Content-Type: application/x-www-form-urlencoded`
 
-This substitutes the `app.use(express.urlencoded()` middleware. URL Encoded bodies have information in the form of URL Query Params: `a=1&b=2&c=something...`.
+This substitutes the `app.use(express.urlencoded())` middleware. URL Encoded bodies have information in the form of URL Query Params: `a=1&b=2&c=something...`.
 
 We'll do what we did for JSON bodies, only this time we'll use the `URLSearchParams` class available to us from the global scope and use that to parse the url-encoded body string.
 
@@ -113,7 +122,7 @@ const urlEncodedBodyParserMiddleware = (req, _, next) => {
 };
 ```
 
-####  File Parsing Middleware 
+#### File Parsing Middleware
 
 This simple middleware would act similar to [`express-fileupload`](https://www.npmjs.com/package/express-fileupload) library that reads the file sent in the request and then attaches it to the `file` property of the request.
 
