@@ -1,5 +1,6 @@
 # Hobnob - Blog Entries
 
+- [The problems with building services and systems in-house](the-problems-with-building-services-in-house.md)  -  Tue Oct 25 2022
 - [How File Uploads and Body Parsers Work + Creating them ourselves](how-file-uploads-and-body-parsers-work.md)  -  Mon Oct 17 2022
 - [Creating our own SWR](creating-our-own-swr.md)  -  Wed Oct 05 2022
 - [Using GitHub Actions with GitHub Pages (Main + Preview Builds)](using-github-actions-with-github-pages-to-publish-preview-builds.md) - Thu Sep 15 2022
