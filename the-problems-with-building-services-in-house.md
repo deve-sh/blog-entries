@@ -50,6 +50,10 @@ Similarly, MongoDB Atlas and AWS RDS are databases as a service where databases 
 
 > If a company that specializes in X, starts focusing on Y to keep its systems running. The focus on X is diluted, leading to poor performance in both X and Y.
 
+With their focus on doing one thing well, they can build fast and reliable services and you can use them without having to worry.
+
+This is one of the reasons why Serverless is so popular!
+
 #### Managed Services can hire more experts in their field
 
 If a logistics company wanted to set up an SRE Team, they would have to hire entry-level (Optionally), mid-level and senior-level Site Reliability Engineers depending on their budget. The cost of hiring these engineers and the services they would host and maintain comes from the overall budget of the company, money that the SRE team would compete for with other units of the company like marketing, sales etc.
