@@ -213,23 +213,6 @@ export default defaultFetcher;
 
 Before we get to the `useFetch` hook, let's create a `FetchProvider` context for the consumers of our library to use to set a common config for all `useFetch` hooks inside them.
 
-For Example:
-
-```jsx
-<FetchConfig value={{
-    revalidateOnMount: true,
-    revalidateOnFocus: false,
-    fetcher: (key) => ...,
-    fallback: {
-        your-key: data,
-        second-key: secondData,
-    }
-    ...
-}}>
-    <ComponentContainingManyUseFetchHooks />
-</FetchConfig>
-```
-
 ```jsx
 // src/Provider/index.js
 import { createContext, useMemo } from "react";
