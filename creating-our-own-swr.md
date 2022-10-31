@@ -221,8 +221,8 @@ For Example:
     revalidateOnFocus: false,
     fetcher: (key) => ...,
     fallback: {
-        [key]: data,
-        [secondKey]: secondData,
+        your-key: data,
+        second-key: secondData,
     }
     ...
 }}>
