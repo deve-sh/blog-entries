@@ -28,7 +28,7 @@ This might not seem like a big deal, but the common pattern used in a lot of cod
 
 You could always use a state-management library like Redux or Zustand to store data in a global store, but that requires you to set those tools up manually too.
 
-```javascript
+```jsx
 const ComponentOne = (props) => {
 	const [data, setData] = useState(props.data || null);
 	useEffect(() => {
@@ -56,7 +56,7 @@ const ContainerComponent = () => {
 
 Enter SWR:
 
-```javascript
+```jsx
 const ComponentOne = (props) => {
 	const { data } = useSWR("/api/v1/data");
 };
@@ -116,7 +116,7 @@ React, by its very name, promises Reactivity out of the box. What's meant by rea
 
 But the way React gets notified to re-render based on some change is not as someone just beginning to use React would expect.
 
-```javascript
+```jsx
 const [stateVariable, setStateVariable] = useState(0);
 
 useEffect(() => {
@@ -165,7 +165,7 @@ The listener here is the function that `useSyncExternalStore` passes to our stor
 
 We're making the GlobalCache variable a function as we want the cache to be ["closed"](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures) to its instance, so every time a Global Context Provider is created, a new instance of the cache is created that has nothing to do with any other cache instances shared across the app.
 
-```typescript
+```javascript
 // src/internals/GlobalCache.ts
 const GlobalCache = () => {
 	const cache = new Map();
@@ -215,7 +215,7 @@ Before we get to the `useFetch` hook, let's create a `FetchProvider` context for
 
 For Example:
 
-```javascript
+```jsx
 <FetchConfig value={{
     revalidateOnMount: true,
     revalidateOnFocus: false,
@@ -230,7 +230,7 @@ For Example:
 </FetchConfig>
 ```
 
-```javascript
+```jsx
 // src/Provider/index.js
 import { createContext, useMemo } from "react";
 
@@ -484,7 +484,7 @@ SWR takes care of both of the above cases, and there are very clever ways to han
 
 First, let's look at the first case: Deduping of a request to an endpoint being made at the same time. This is most often caused by two or more `useFetch` hooks being called with a `key` very close in time to each other. Consider the scenario below:
 
-```javascript
+```jsx
 const ComponentOne = () => {
 	const { data } = useFetch("/api/v1/data");
 };
