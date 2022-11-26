@@ -1,5 +1,7 @@
 # Hobnob - Blog Entries
 
+- [Building a Frontend Monitoring Tool](building-a-frontend-monitoring-tool.md)  -  Sat Oct 29 2022# Hobnob - Blog Entries
+
 - [Stop building systems in-house](the-problems-with-building-services-in-house.md)  -  Tue Oct 25 2022
 - [How File Uploads and Body Parsers Work + Creating them ourselves](how-file-uploads-and-body-parsers-work.md)  -  Mon Oct 17 2022
 - [Creating our own SWR](creating-our-own-swr.md)  -  Wed Oct 05 2022
