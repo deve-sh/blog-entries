@@ -1,5 +1,6 @@
 # Hobnob - Blog Entries
 
+- [Software At Its Core: Tradeoffs, Opinions and Chaos](software-at-its-core.md)  -  Sat Dec 17 2022
 - [Building our own Automated Testing Stack On The Cloud](building-our-own-automated-testing-stack-on-the-cloud.md)  -  Sat Dec 03 2022
 - [Building a Frontend Monitoring Tool](building-a-frontend-monitoring-tool.md)  -  Sat Oct 29 2022# Hobnob - Blog Entries
 
