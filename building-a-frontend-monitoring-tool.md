@@ -9,6 +9,7 @@ I've always been blown away by the amount of information that the network calls 
 So I thought, let's try building a solution similar to Firebase Performance Monitoring, and also add a few bonus features on top of it.
 
 ##### Features we'll be building:
+
 - User Session Creation and deduplication.
 - Measurement of API Call duration, latency, response time etc.
 - Measurement of Web Vitals
@@ -23,11 +24,13 @@ We'll be bundling all of the above at the end into a simple SDK which users can 
 We'll be calling the service "Spot"! (I know I know, it's not the most creative name, all the others were taken 😛)
 
 #### An Overview of how it will work
+
 ![How Spot SDK Works In a Nutshell.png](https://firebasestorage.googleapis.com/v0/b/devesh-blog-3fbfc.appspot.com/o/postimages%2Fbuilding-a-frontend-monitoring-tool%2Fsecondaryimages%2FHow%20Spot%20SDK%20Works%20In%20a%20Nutshell1669456033633.png?alt=media&token=50e3e104-9f22-410b-ba32-c5952003d6f3)
 
 We'll not be discussing server-side implementation in this blog post. The storage, retrieval and analytics on the backend are fairly straightforward.
 
 ##### Check Out The Final Source Code [here](https://github.com/deve-sh/spot).
+
 ##### Check Out The Result [here](https://spot-monitoring.vercel.app) - fully functional with a backend and a database.
 
 > **Note**: Supabase, the auth and database provider I used to build the front-end seems to be having issues with GitHub login so bare with me while that issue is fixed. Check the ongoing issue discussion [here](https://github.com/supabase/supabase/issues/10540).
@@ -68,11 +71,12 @@ To keep a session active till all the tabs and browser windows are closed, we wi
 ![image.png](https://firebasestorage.googleapis.com/v0/b/devesh-blog-3fbfc.appspot.com/o/postimages%2Fbuilding-a-frontend-performance-monitoring-and-observability-solution%2Fsecondaryimages%2Fimage1668855451028.png?alt=media&token=9b18e412-651d-48d5-adfc-9d575383aa69)
 
 Hence the session flow becomes:
+
 - Check if a session is already actively using a cookie.
 - If it is, pick up from where we left off. If not, generate a UUID and set it as the session cookie.
 - Make an API call to the backend to notify of a session creation or continuation.
 
-### Intercepting Network Calls Approach 1: Create a Prototype of `XMLHttpRequest`  and `fetch`
+### Intercepting Network Calls Approach 1: Create a Prototype of `XMLHttpRequest` and `fetch`
 
 We could always just wrap around our own function to trace Network Calls.
 
@@ -108,9 +112,11 @@ const networkInterceptor = () => {
 ```
 
 **Pros of this approach:**
+
 - We get information like the request's method (GET, POST, DELETE etc) and network level errors, information that we wouldn't get from Performance API.
 
 **Cons of this approach:**
+
 - Wrapping Prototypes can be risky as there might be other libraries that could expose their own wrappers for these classes, which might break.
 - Every request's initiator would be our own library and it will get hard for developers to debug issues with their network calls using the browser console.
 
@@ -122,7 +128,7 @@ Another great advantage of the performance API is the use case we are looking fo
 
 A simple call of `performance.getEntries()` gives us information from the start of the website session in the current tab to the current point in time, and not just network calls, but also performance information about scripts, link tags, images and other performance marks which we'll use to measure the performance of custom app code later. It's truly all the data one might need for their website's performance on real users' devices.
 
-![image.png](https://firebasestorage.googleapis.com/v0/b/devesh-blog-3fbfc.appspot.com/o/postimages%2Fbuilding-a-frontend-performance-monitoring-and-observability-solution%2Fsecondaryimages%2Fimage1668956541842.png?alt=media&token=1cdb2deb-072a-4223-84ac-565bd1f2f4ae)
+![image.png](https://firebasestorage.googleapis.com/v0/b/devesh-blog-3fbfc.appspot.com/o/postimages%2Fbuilding-a-frontend-monitoring-tool%2Fsecondaryimages%2Fperformance-api-entries.png?alt=media&token=f0cb6aca-7682-482c-84c4-5cbda9d6552b)
 
 For a start, a simple loop on performance.getEntries for network calls data would look like this:
 
@@ -134,7 +140,8 @@ for (let i = 0; i < entries.length; i += 1) {
 	if (!(entry instanceof PerformanceResourceTiming)) continue;
 	if (!["fetch", "xmlhttprequest"].includes(entry.initiatorType)) continue;
 
-	console.log({   // Do something with this data, like sending it to your performance monitoring server.
+	console.log({
+		// Do something with this data, like sending it to your performance monitoring server.
 		type: "network-call",
 		bodySize: entry.encodedBodySize,
 		responseSize: entry.transferSize,
@@ -146,14 +153,13 @@ for (let i = 0; i < entries.length; i += 1) {
 		timeToResponse: entry.responseEnd - entry.requestStart,
 	});
 }
-
 ```
 
 One con of this approach, however, is that there are no logs of failed network calls or their request method.
 
 ### Getting Web Vitals like FCP, FID, domContentInteractive etc
 
-The Performance list we get with `performance.getEntries` is also rich in vitals information about the page, including metrics like [First Contentful Paint](https://web.dev/fcp/), [First Input Delay](https://web.dev/fid/), and other navigational metrics like domInteractive` and `domContentLoaded`.
+The Performance list we get with `performance.getEntries` is also rich in vitals information about the page, including metrics like [First Contentful Paint](https://web.dev/fcp/), [First Input Delay](https://web.dev/fid/), and other navigational metrics like domInteractive`and`domContentLoaded`.
 
 We can extend our base performance function to include these changes:
 
@@ -338,16 +344,17 @@ We will also need to do some processing, logs can have object data in them and w
 ```javascript
 const processLogFragment = (logFragment: any): LogFragment => ({
 	type: typeof logFragment,
-	value: typeof logFragment !== 'string' ? JSON.stringify(logFragment) : logFragment
+	value:
+		typeof logFragment !== "string" ? JSON.stringify(logFragment) : logFragment,
 });
 
 const processLog = (logFragments: any[], severity: LogTypes): LogEntry => {
-	const { sessionId } = getInstance() || { sessionId: '' };
+	const { sessionId } = getInstance() || { sessionId: "" };
 	return {
 		fragments: logFragments.map(processLogFragment),
 		severity,
 		at: new Date().getTime(),
-		sessionId
+		sessionId,
 	};
 };
 ```
@@ -378,18 +385,18 @@ npm i --save-dev webpack webpack-cli
 Add the following config to our SDK's `webpack.config.js` file:
 
 ```javascript
-const path = require('path');
+const path = require("path");
 
 module.exports = {
-	entry: './dist/index.js',
+	entry: "./dist/index.js",
 	output: {
-		path: path.resolve(__dirname, 'dist'),
-		filename: 'index.js',
-		library: 'Spot',  // To enable CDN, or browser-based imports using window.Spot
-		libraryTarget: 'umd',  // To work on both npm based apps and plain HTML based apps
-		libraryExport: 'default',  // Only export the default export from index.js
-		globalObject: 'this'
-	}
+		path: path.resolve(__dirname, "dist"),
+		filename: "index.js",
+		library: "Spot", // To enable CDN, or browser-based imports using window.Spot
+		libraryTarget: "umd", // To work on both npm based apps and plain HTML based apps
+		libraryExport: "default", // Only export the default export from index.js
+		globalObject: "this",
+	},
 };
 ```
 
@@ -397,7 +404,7 @@ Run `npm publish`. And we should be set.
 
 ### Finishing Off
 
-The SDK code should be ready at this point, all the information that's collected for monitoring, logging and traces can be sent to a backend server that stores it in a database (Most reliably a time-series database if the scale is large, although it could also go directly to LogStash and queried with ElasticSearch). 
+The SDK code should be ready at this point, all the information that's collected for monitoring, logging and traces can be sent to a backend server that stores it in a database (Most reliably a time-series database if the scale is large, although it could also go directly to LogStash and queried with ElasticSearch).
 
 I built a simple dashboard that displays project-related data and the metrics corresponding to it. Check it out [here](https://spot-monitoring.vercel.app/).
 
