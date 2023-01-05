@@ -1,5 +1,6 @@
 # Hobnob - Blog Entries
 
+- [Your Repositories as your Project Dependencies](your-repositories-as-your-project-dependencies.md)  -  Sun Jan 01 2023
 - [Building a Real-Time Online Development Environment](building-a-real-time-dev-environment-like-codesandbox.md)  -  Thu Jul 28 2022
 - [Software At Its Core: Tradeoffs, Opinions and Chaos](software-at-its-core.md)  -  Sat Dec 17 2022
 - [Building our own Automated Testing Stack On The Cloud](building-our-own-automated-testing-stack-on-the-cloud.md)  -  Sat Dec 03 2022
