@@ -1,14 +1,13 @@
 # Hobnob - Blog Entries
 
-- [Your Repositories as your Project Dependencies](your-repositories-as-your-project-dependencies.md)  -  Sun Jan 01 2023
-- [Building a Real-Time Online Development Environment](building-a-real-time-dev-environment-like-codesandbox.md)  -  Thu Jul 28 2022
-- [Software At Its Core: Tradeoffs, Opinions and Chaos](software-at-its-core.md)  -  Sat Dec 17 2022
-- [Building our own Automated Testing Stack On The Cloud](building-our-own-automated-testing-stack-on-the-cloud.md)  -  Sat Dec 03 2022
-- [Building a Frontend Monitoring Tool](building-a-frontend-monitoring-tool.md)  -  Sat Oct 29 2022# Hobnob - Blog Entries
-
-- [Stop building systems in-house](the-problems-with-building-services-in-house.md)  -  Tue Oct 25 2022
-- [How File Uploads and Body Parsers Work + Creating them ourselves](how-file-uploads-and-body-parsers-work.md)  -  Mon Oct 17 2022
-- [Creating our own SWR](creating-our-own-swr.md)  -  Wed Oct 05 2022
+- [Your Repositories as your Project Dependencies](your-repositories-as-your-project-dependencies.md) - Sun Jan 01 2023
+- [Building a Real-Time Online Development Environment](building-a-real-time-dev-environment-like-codesandbox.md) - Thu Jul 28 2022
+- [Software At Its Core: Tradeoffs, Opinions and Chaos](software-at-its-core.md) - Sat Dec 17 2022
+- [Building our own Automated Testing Stack On The Cloud](building-our-own-automated-testing-stack-on-the-cloud.md) - Sat Dec 03 2022
+- [Building a Frontend Monitoring Tool](building-a-frontend-monitoring-tool.md) - Sat Oct 29 2022
+- [Stop building systems in-house](the-problems-with-building-services-in-house.md) - Tue Oct 25 2022
+- [How File Uploads and Body Parsers Work + Creating them ourselves](how-file-uploads-and-body-parsers-work.md) - Mon Oct 17 2022
+- [Creating our own SWR](creating-our-own-swr.md) - Wed Oct 05 2022
 - [Using GitHub Actions with GitHub Pages (Main + Preview Builds)](using-github-actions-with-github-pages-to-publish-preview-builds.md) - Thu Sep 15 2022
 - [Using BigQuery for Your Application and User Logs](using-bigquery-for-your-application-user-logs.md) - Sun Aug 28 2022
 - [Know This Before You Choose MongoDB Atlas Serverless](know-this-before-you-choose-mongodb-atlas-serverless.md) - Sun Aug 28 2022
