@@ -1,5 +1,7 @@
 # Hobnob - Blog Entries
 
+- [Creating a Consent-Based User Account Access System](creating-a-consent-based-temp-access-system-for-end-user-support.md)  -  Wed Jan 11 2023# Hobnob - Blog Entries
+
 - [Your Repositories as your Project Dependencies](your-repositories-as-your-project-dependencies.md) - Sun Jan 01 2023
 - [Building a Real-Time Online Development Environment](building-a-real-time-dev-environment-like-codesandbox.md) - Thu Jul 28 2022
 - [Software At Its Core: Tradeoffs, Opinions and Chaos](software-at-its-core.md) - Sat Dec 17 2022
