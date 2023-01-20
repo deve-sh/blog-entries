@@ -1,5 +1,6 @@
 # Hobnob - Blog Entries
 
+- [Tagged Templates: How styled-components work under the hood](tagged-templates-how-styled-components-work.md)  -  Tue Jan 17 2023
 - [Creating a Consent-Based User Account Access System](creating-a-consent-based-temp-access-system-for-end-user-support.md)  -  Wed Jan 11 2023# Hobnob - Blog Entries
 
 - [Your Repositories as your Project Dependencies](your-repositories-as-your-project-dependencies.md) - Sun Jan 01 2023
