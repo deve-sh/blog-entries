@@ -2,11 +2,9 @@
 
 ![Photo by olia danilevich: https://www.pexels.com/photo/man-sitting-in-front-of-three-computers-4974915/](https://firebasestorage.googleapis.com/v0/b/devesh-blog-3fbfc.appspot.com/o/postimages%2Fcreating-an-online-development-environment-like-codesandbox%2Fprimaryimage.jpg?alt=media&token=da419413-39fe-4d13-9c15-3542180d07f7)
 
-If you're a developer who's been working with the JavaScript ecosystem for a long time, you know real-time online development environments are an indispensable part of the development experience.
+If you're a developer who's been working with the JavaScript ecosystem for a long time, you know real-time online development environments are an indispensable part of the development experience. Better yet, if you're a web developer who has a "not-so-powerful" device, the time to set up or start a project is a huge pain which is alleviated by platforms like [Codesandbox](https://codesandbox.io/) and [StackBlitz](https://stackblitz.com/) as they take away the entire pain of having to go through the setup process for your apps locally (Which is often the most time-consuming part of the process of getting started with a project) and also provide you with the flexibility to quickly prototype a project, run what you want to and even share samples and code with other people on the internet.
 
-I have been a big fan of services like [Codesandbox](https://codesandbox.io/) and [StackBlitz](https://stackblitz.com/) as they take away the entire pain of having to go through the setup process for your apps locally (Which is often the most time-consuming part of the process of getting started with a project) and also provide you with the flexibility to quickly prototype a project, run what you want to and even share samples and code with other people on the internet.
-
-Needless to say, being the tinkerer I have inside me, wanted to learn how these systems worked internally, I had a fairly good idea but these services do not expose the workings of their systems (Of course) like an open-source project, it would have been great if they did but you can't have everything in life.
+I've been a huge fan of Codesandbox from day 1, it is one of the few products that made me go "WOW!" the first time I tried it. Needless to say, the tinkerer inside me wanted to learn how these systems worked internally, I had a fairly good idea but these services do not expose the workings of their systems (Of course) like an open-source project, it would have been great if they did but you can't have everything in life.
 
 So this post is my journey of figuring out how to create a system similar to Codesandbox.
 
@@ -66,8 +64,8 @@ I chose EC2 simply because of the native API AWS has to create an EC2 instance, 
 - Our React Application rendering the front-end would display a list of projects to the user, fetched from the main server.
 - The user selects a project they want to work on by clicking on it.
 - At this point, two things happen:
-    - The front end fetches the list of files and then calculates the id of the last file that was edited on the project.
-    - The front end requests an endpoint (`/initialize`) that spins up a virtual environment server and sends its URL back to the front end.
+  - The front end fetches the list of files and then calculates the id of the last file that was edited on the project.
+  - The front end requests an endpoint (`/initialize`) that spins up a virtual environment server and sends its URL back to the front end.
 - Using the data the front end received about the project, it renders a view of the files in the project and makes an API Call to get the file's contents that the user wants to make edits to. In the beginning, it would be the file that was last updated in the project.
 - Every time the user makes a change to a file ([Debounced](https://www.freecodecamp.org/news/javascript-debounce-example/), or trigger-based using Ctrl + S, of course), the front-end makes a POST call to the main backend server to store an updated version of the file.
 - Once the update is confirmed by the database, the backend makes a file change ping to the app runner script on the EC2 Instance with the updated file contents.
@@ -82,27 +80,27 @@ Our frontend will receive files in a flat array like the following:
 
 ```json
 [
-    {
-        "_id": "63a7f7ec34daa9b3013cd59d",
-        "projectId": "63a7f7ec34daa9b3013cd59c",
-        "path": "next.config.js",
-        "createdAt": "2022-12-25T07:12:44.192Z",
-        "updatedAt": "2022-12-25T07:12:44.192Z"
-    },
-    {
-        "_id": "63a7f7ec34daa9b3013cd59e",
-        "projectId": "63a7f7ec34daa9b3013cd59c",
-        "path": "package.json",
-        "createdAt": "2022-12-25T07:12:44.192Z",
-        "updatedAt": "2022-12-25T07:12:44.192Z"
-    },
-    {
-        "_id": "63a7f7ec34daa9b3013cd59f",
-        "projectId": "63a7f7ec34daa9b3013cd59c",
-        "path": "pages/api/hello.js",
-        "createdAt": "2022-12-25T07:12:44.192Z",
-        "updatedAt": "2022-12-25T07:12:44.192Z"
-    }
+	{
+		"_id": "63a7f7ec34daa9b3013cd59d",
+		"projectId": "63a7f7ec34daa9b3013cd59c",
+		"path": "next.config.js",
+		"createdAt": "2022-12-25T07:12:44.192Z",
+		"updatedAt": "2022-12-25T07:12:44.192Z"
+	},
+	{
+		"_id": "63a7f7ec34daa9b3013cd59e",
+		"projectId": "63a7f7ec34daa9b3013cd59c",
+		"path": "package.json",
+		"createdAt": "2022-12-25T07:12:44.192Z",
+		"updatedAt": "2022-12-25T07:12:44.192Z"
+	},
+	{
+		"_id": "63a7f7ec34daa9b3013cd59f",
+		"projectId": "63a7f7ec34daa9b3013cd59c",
+		"path": "pages/api/hello.js",
+		"createdAt": "2022-12-25T07:12:44.192Z",
+		"updatedAt": "2022-12-25T07:12:44.192Z"
+	}
 ]
 ```
 
@@ -140,7 +138,7 @@ The app start process is a little intense and lengthy, make sure to click on the
 
 There is a lot of information in the above flow, feel free to open the image in a new tab and read through it.
 
-### Spinning up and terminating servers for running our code on demand 
+### Spinning up and terminating servers for running our code on demand
 
 The creation of servers for running our code and then pushing files into it for the project and subsequently readying it to accept further file updates and start our app is the most core part of this project.
 
@@ -203,11 +201,10 @@ All files at their core are composed of text. Hence, the file upload will be fai
 The catch is that we only allow type: `text/**` and `application/**` files for future editing from uploaded files, all other file types are shown as a binary content screen to the user.
 
 **Requisites:**
+
 - An invisible file input.
 - An `isReadableContent` flag for project files, to be deduced on the front end using the `file.type` attribute.
-    
-    ![image.png](https://firebasestorage.googleapis.com/v0/b/devesh-blog-3fbfc.appspot.com/o/postimages%2Fbuilding-a-real-time-dev-environment-like-codesandbox%2Fsecondaryimages%2Fimage1672668236225.png?alt=media&token=a9d6b91d-ecc6-4f43-8426-1dd18eb2c740)
-    
+  ![image.png](https://firebasestorage.googleapis.com/v0/b/devesh-blog-3fbfc.appspot.com/o/postimages%2Fbuilding-a-real-time-dev-environment-like-codesandbox%2Fsecondaryimages%2Fimage1672668236225.png?alt=media&token=a9d6b91d-ecc6-4f43-8426-1dd18eb2c740)
 - Usage of the `Blob.text()` method on the front end to read the content of the file and simply invoke the create file endpoint with the content as payload if `file.size` is less than 100KB.
 - A binary data message to show the user to prevent them from editing or viewing unreadable data for a file.
 
@@ -234,6 +231,7 @@ We can also have protected environment variables like `PORT` and `NODE_ENV` to p
 There would inevitably be the requirement for restarting the app server, it could be because of an environment variable change or an app crash.
 
 In the event an app restart is required, the process will be simple:
+
 - We send over a REST API call to the backend notifying it that we need a restart.
 - The backend then sends over a socket ping to the app runner server associated with the project.
 - The app runner server closes the currently running sub-process for the app and respawns it. Everything remains unchanged, the socket connection is not affected and the logs are streamed from the beginning.
