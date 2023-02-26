@@ -1,5 +1,6 @@
 # Hobnob - Blog Entries
 
+- [How to make your Web Apps work offline](how-to-make-your-web-apps-work-offline.md)  -  Sat Jan 21 2023
 - [How Pocket Works](how-pocket-works.md)  -  Fri Jan 27 2023
 - [Tagged Templates: How styled-components work under the hood](tagged-templates-how-styled-components-work.md)  -  Tue Jan 17 2023
 - [Creating a Consent-Based User Account Access System](creating-a-consent-based-temp-access-system-for-end-user-support.md)  -  Wed Jan 11 2023# Hobnob - Blog Entries
