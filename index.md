@@ -1,5 +1,6 @@
 # Hobnob - Blog Entries
 
+- [Lighthouse: Building our own Webpage Performance Analyzer](building-lighthouse-ourselves.md)  -  Sat Mar 04 2023
 - [How to make your Web Apps work offline](how-to-make-your-web-apps-work-offline.md)  -  Sat Jan 21 2023
 - [How Pocket Works](how-pocket-works.md)  -  Fri Jan 27 2023
 - [Tagged Templates: How styled-components work under the hood](tagged-templates-how-styled-components-work.md)  -  Tue Jan 17 2023
