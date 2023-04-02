@@ -1,5 +1,6 @@
 # Hobnob - Blog Entries
 
+- [Demystifying Video Calls and Streaming with JavaScript 📹🎤](demystifying-video-calls-and-streaming-with-javascript.md)  -  Sat Apr 01 2023
 - [Lighthouse: Building our own Webpage Performance Analyzer](building-lighthouse-ourselves.md)  -  Sat Mar 04 2023
 - [How to make your Web Apps work offline](how-to-make-your-web-apps-work-offline.md)  -  Sat Jan 21 2023
 - [How Pocket Works](how-pocket-works.md)  -  Fri Jan 27 2023
