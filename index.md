@@ -1,8 +1,7 @@
 # Hobnob - Blog Entries
 
 - [Less Work. More Impact.](less-work-more-impact.md)  -  Thu Jul 27 2023
-- [Deploying your Express App to Cloud Functions](deploying-your-express-app-to-cloud-functions.md)  -  Thu Jul 06 2023# Hobnob - Blog Entries
-
+- [Deploying your Express App to Cloud Functions](deploying-your-express-app-to-cloud-functions.md)  -  Thu Jul 06 2023
 - [Creating multi-lingual apps: A starting point](creating-multi-lingual-apps.md)  -  Mon May 15 2023
 - [Demystifying Video Calls and Streaming with JavaScript 📹🎤](demystifying-video-calls-and-streaming-with-javascript.md)  -  Sat Apr 01 2023
 - [Lighthouse: Building our own Webpage Performance Analyzer](building-lighthouse-ourselves.md)  -  Sat Mar 04 2023
