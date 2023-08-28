@@ -1,7 +1,6 @@
 # Hobnob - Blog Entries
 
 - [The two phases of being a Software Engineer](the-two-phases-of-being-a-software-engineer.md)  -  Wed Jul 26 2023# Hobnob - Blog Entries
-
 - [Less Work. More Impact.](less-work-more-impact.md)  -  Thu Jul 27 2023
 - [Deploying your Express App to Cloud Functions](deploying-your-express-app-to-cloud-functions.md)  -  Thu Jul 06 2023
 - [Creating multi-lingual apps: A starting point](creating-multi-lingual-apps.md)  -  Mon May 15 2023
