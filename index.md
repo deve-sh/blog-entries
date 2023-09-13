@@ -1,5 +1,6 @@
 # Hobnob - Blog Entries
 
+- [Quick Guide: Detecting Read Leaks in Firestore](detecting-read-leaks-in-firestore.md)  -  Mon Sep 04 2023
 - [A Quick Dive into how HMR Works](quick-dive-into-how-hmr-works.md)  -  Mon Sep 04 2023
 - [The two phases of being a Software Engineer](the-two-phases-of-being-a-software-engineer.md)  -  Wed Jul 26 2023
 - [Less Work. More Impact.](less-work-more-impact.md)  -  Thu Jul 27 2023
