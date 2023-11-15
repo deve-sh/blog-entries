@@ -11,6 +11,7 @@ With CI pipelines being so ubiquitous and easily accessible, with platforms like
 This blog post is a walkthrough of the process and steps involved in how I built a CI/CD Pipeline runner, and what it would take to build it to a fully functional feature-complete solution like GitLab CI.
 
 **We would cover the following bits:**
+
 - What we want to support
 - The schema for our CI files: YAML, JSON or something else?
 - Where do we want to run our pipelines?
@@ -21,6 +22,7 @@ This blog post is a walkthrough of the process and steps involved in how I built
 - Managing Timeouts
 
 **Some added bits we will cover in not so much detail that deal with the evolution of the product:**
+
 - What would the architecture look like if we were to bring in support for teams?
 - What would the architecture look like if we wanted to support more than one Git Provider?
 - What would we do if we also want to provide ephemeral storage and caching of artifacts from pipelines?
@@ -64,7 +66,7 @@ The pipeline will be stored in the `.simpleci/pipeline.json` file at the root of
 }
 ```
 
-For now,  we're also going to support only one pipeline file for simplicity, consumers can define steps to run based on the `context.event` field which we will populate for them later in this post.
+For now, we're also going to support only one pipeline file for simplicity, consumers can define steps to run based on the `context.event` field which we will populate for them later in this post.
 
 You can check out the full JSON Schema specification for the steps [here](https://github.com/deve-sh/SimpleCI/blob/main/steps.schema.json).
 
@@ -97,6 +99,7 @@ Let’s just go ahead with the Google Cloud Functions route for now for simplici
 Not all customers are the same and hence their requirements vary too. For a repo just starting, their pipelines might finish in less than 15 seconds, for a larger repo, it might well go on to be active for over 7 minutes and consume over 6GB of RAM. Great CI pipeline providers give their customers "tiers" of runners they can use, which we'll support as well.
 
 For a start, let's have 3 tiers of runners our consumers can use and be billed on:
+
 - **Standard Tier** that gives them a Linux environment, 2 GB of RAM and a timeout of 150 seconds to clone their repository, run their steps and complete the pipeline.
 - **Medium Tier**: Gives them a Linux environment, more RAM, a higher timeout and so on.
 - **Large Tier**: You get the picture.
@@ -144,6 +147,7 @@ The webhook would be set to a Cloud Function which in turn validates the payload
 ### A precursor: Architecture of our Runner and processes running inside it
 
 Every command we run on the pipeline:
+
 - Has to be tracked
 - Should not crash our server or exit our process
 - Logs from it have to be streamed in real-time and stored on a database.
@@ -163,7 +167,12 @@ This allows for powerful pipeline files that can handle a plethora of triggers.
 A way to evaluate these `condition` expressions would be to simply run `eval` and get the value. Although that's pretty much the only way to do it, it makes sense for security purposes to run it in a separate [worker thread](https://nodejs.org/api/worker_threads.html) that doesn't interfere with the rest of the flow.
 
 ```javascript
-const { Worker, isMainThread, workerData, parentPort } = require("node:worker_threads");
+const {
+	Worker,
+	isMainThread,
+	workerData,
+	parentPort,
+} = require("node:worker_threads");
 
 if (isMainThread) {
 	const evaluateExpression = (expression = "") =>
@@ -180,7 +189,8 @@ if (isMainThread) {
 			evaluationWorker.on("message", resolve);
 			evaluationWorker.on("error", reject);
 			evaluationWorker.on("exit", (code) => {
-				if (code !== 0) reject(new Error(`Condition evaluation for step failed.`));
+				if (code !== 0)
+					reject(new Error(`Condition evaluation for step failed.`));
 			});
 		});
 
@@ -216,15 +226,18 @@ can be evaluated and readied for execution with:
 import Handlebars from "handlebars";
 
 const stringTemplateResolver = Handlebars.compile(step.run);
-executeCommand(stringTemplateResolver({
-	env: runInfo.env,
-	context: runInfo.context,
-}));
+executeCommand(
+	stringTemplateResolver({
+		env: runInfo.env,
+		context: runInfo.context,
+	})
+);
 ```
 
 ### Managing and handling process timeout
 
 Since we operate the entire flow inside a wrapper, we also control timeouts. A clean way to do so would be to:
+
 - Keep a list of processes currently spawned.
 - Set a global timeout of n - 1 second, where n is the timeout allocated to the pipeline.
 - If there are any processes still executing at time n - 1, kill them and mark them as failed.
@@ -233,7 +246,7 @@ Since we operate the entire flow inside a wrapper, we also control timeouts. A c
 1 second is usually more than enough to handle all these actions, and most worker platforms will also give you an "escape-hatch" that allows you to run some cleanup code before a Cloud Function / Lambda exits for a few seconds, these actions could even be run there.
 
 ```javascript
-process.on('beforeExit', handlePipelineTimeout);
+process.on("beforeExit", handlePipelineTimeout);
 ```
 
 ### Environment Variables and Context Information
@@ -243,11 +256,13 @@ Most consumers would expect some sort of environment variables support for their
 At the same time, there is some additional information per pipeline that is useful for conditional evaluation and inside commands for each step.
 
 This is fairly simple to do. The setup for creation and storage of environment variables is simple:
+
 - Create a variables collection in your database, and allow the user to enter a key-value pair of data for each variable.
 - Encrypt those variables with a secret that only your backend knows (Even a hash based on the Project's ID and some random parameter would be preferable as it prevents complete leakage of variables if your secret leaks).
 - Allow users to only override those values and never re-read them.
 
 To expose environment variables in the pipeline, during the setup process:
+
 - Fetch variables for a project.
 - Expose environment variables as an object in the expression evaluation (As seen in the section above)
 - Run commands to `export` and `unset` the variables to bash for access in Pipeline Steps.
@@ -262,8 +277,8 @@ For our pipelines, we can create a process wrapper that listens for logs of an u
 
 ```javascript
 class SpawnedProcess {
-    constructor (command, workingDirectory) {
-        const { spawn } = require("child_process");
+	constructor(command, workingDirectory) {
+		const { spawn } = require("child_process");
 
 		this.process = spawn(command, {
 			shell: true,
@@ -283,7 +298,7 @@ class SpawnedProcess {
 			}
 			this.onComplete.forEach((subscriber) => subscriber(this.finalStatus));
 		});
-    }
+	}
 }
 ```
 
@@ -366,7 +381,7 @@ Currently, in the repo, in a lot of places, the usage of GitHub-specific code is
 
 In such a case, we need to rely on a combination of dependency inversion and injection patterns. Detailed in brief below:
 
-![How the Git-based provider setup can evolve.png](https://firebasestorage.googleapis.com/v0/b/devesh-blog-3fbfc.appspot.com/o/postimages%2Flets-build-our-own-ci-job-runner%2Fsecondaryimages%2FHow%20the%20Git-based%20provider%20setup%20can%20evolve1699724025086.png?alt=media&token=f46fd610-73ce-49c3-9599-8aab7ad5405f)
+![How the Git-based provider setup can evolve](https://firebasestorage.googleapis.com/v0/b/devesh-blog-3fbfc.appspot.com/o/postimages%2Flets-build-our-own-ci-job-runner%2Fsecondaryimages%2FHow%20the%20Git-based%20provider%20setup%20can%20evolve.png?alt=media&token=d780c15f-03a1-4f24-a4e3-1c61f29fefcd)
 
 ##### What would we do if we also want to provide ephemeral storage and caching of artifacts from pipelines?
 
@@ -382,7 +397,7 @@ Let's first look at how it will look from our consumer's perspective. They will 
        name: "Cache or restore artifacts",
        type: "cache-files", // or "store-files". From a pre-defined ENUM
        key: "{context.event}-cached-artifacts",
-       fileNames: [Glob Patterns like './.cache/*' or individual string entries],
+       fileNames: [Glob Patterns like './.cache**' or individual string entries],
        expiry: Timestamp or a Number indicating the seconds/days they want the artifacts to be available, mandatory file in case of the cache action, we aren't going to store user files forever after all.
        downloadPath: // Relevant to when restoring a cache
     }
@@ -397,6 +412,7 @@ Evaluating and parsing the steps array in our runner is fairly straightforward, 
 > For caching files we can store files on an SSD provided by your cloud to ensure the reads and downloads are faster, subsequently, they are also going to be more expensive than regular `store-files` operations which we can run simply as upload and download operations to cloud storage buckets.
 
 The underlying process to cache/store would be similar to the following:
+
 - Check the `key` attribute, and make a call to your cloud provider to check if the associated files are available, if not, proceed.
 - The rest of the pipeline executes regularly.
 - At the end, check the cache files step again, and upload any matching generated files from the pipeline to your Cloud Storage Buckets or SSD in case of against the `key` for further pipelines to use. Also, set TTL to these files in case an `expiry` is set.
