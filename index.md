@@ -1,5 +1,6 @@
 # Hobnob - Blog Entries
 
+- [Running Persistent Session-Based E2E Tests with Playwright](running-persistent-session-based-tests-with-playwright.md) - Fri Nov 17 2023
 - [Let's build our own CI Provider](lets-build-our-own-ci-provider.md) - Sat Oct 28 2023
 - [No Such thing as "Too Few Software Engineers"](no-such-thing-as-too-few-software-engineers.md) - Thu Sep 28 2023
 - [Quick Guide: Detecting Read Leaks in Firestore](detecting-read-leaks-in-firestore.md) - Mon Sep 04 2023
