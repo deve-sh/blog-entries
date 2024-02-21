@@ -100,7 +100,7 @@ This prompts the user for their fingerprint or in the case of a laptop, their pa
 
 ![image.png](https://firebasestorage.googleapis.com/v0/b/devesh-blog-3fbfc.appspot.com/o/postimages%2Fclosing-the-gap-between-web-and-native-apps-with-webauthn%2Fsecondaryimages%2Fimage1708279178114.png?alt=media&token=11d39844-d9d6-4217-be54-d34048b5ea2e)
 
-On completing the challenge, a credential pair is created and stored on the device. And the browser returns the following payload with the public key that can be stored on the server paired with detaild/ID of the user who's trying to authenticate with your application:
+On completing the challenge, a credential pair is created and stored on the device, the browser returns the following payload with the public key that can be stored on the server paired with details/ID of the user who's trying to authenticate with your application:
 
 ```js
 {
@@ -116,7 +116,7 @@ On completing the challenge, a credential pair is created and stored on the devi
 
 The `clientDataJSON` and `attestationObject` fields are [CBOR](https://cbor.io/) objects that can be decoded via a CBOR library but to validate the user we only need the `rawId` of the credential, most databases support storage of ArrayBuffers in some form.
 
-**Move to attesting the user identity using the above credential**
+**Move to attesting the user identity using the above credentials**
 
 ```js
 // Get the credential you created and stored in the previous step.
