@@ -1,5 +1,6 @@
 # Hobnob - Blog Entries
 
+- [Closing the gap between web and native apps with Fingerprint Auth](closing-the-gap-between-web-and-native-apps-with-webauthn.md)  -  Sun Jan 28 2024
 - [Running Persistent Session-Based E2E Tests with Playwright](running-persistent-session-based-tests-with-playwright.md) - Fri Nov 17 2023
 - [Let's build our own CI Provider](lets-build-our-own-ci-provider.md) - Sat Oct 28 2023
 - [No Such thing as "Too Few Software Engineers"](no-such-thing-as-too-few-software-engineers.md) - Thu Sep 28 2023
