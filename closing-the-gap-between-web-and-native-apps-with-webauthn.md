@@ -189,19 +189,38 @@ Unless, of course, you're building a web app that has to be scoped to a single d
 
 If you're building a web app where the only thing you want is to lock the access locally to someone who is the owner of the device, effectively preventing someone who doesn't know the PIN.
 
-You can simply use `navigator.credential.create` to invoke the device's fingerprint scanner, if the promise resolves, that means the challenge was completed correctly, if not, the access to the app is not unlocked.
+You can simply use `navigator.credential.create` with `navigator.credential.get` and a local database to invoke the device's fingerprint scanner, if the promise resolves, that means the challenge was completed correctly, if not, the access to the app on the client-side is not unlocked.
 
 ```jsx
 const [isUnlocked, setIsUnlocked] = useState(false);
 
 useEffect(() => {
-    navigator.credential.create(...)
-        .then(() => setIsUnlocked(true));
+	if (localDB.get("passkeyCredentialId")) {
+		navigator.credentials.get({
+            ...
+			publicKey: {
+                ...
+				allowCredentials: [
+					{
+						id: storedCredential.rawId,
+						type: "public-key",
+						transports: ["internal"],
+					},
+				],
+			},
+		}).then(() => {
+			setIsUnlocked(true);
+		});
+	} else
+		navigator.credential.create(...).then((credential) => {
+			localDB.set("passkeyCredentialId", credential);
+			setIsUnlocked(true);
+		});
 }, []);
 
 return !isUnlocked ? <BlockerScreen /> : <App />;
 ```
 
-This has long-term effects on the number of credentials being created and stored on the device but if you wanted to you could do it. 😛
+This is not 100% safe as on a mobile app, given if the only check you have is a client-side check like the above, someone can simply go into the console and try getting the data they need by some other methods.
 
-This is not 100% safe as this can be done on a mobile app but if the only check you have is a client-side check like the above, someone can simply go into the console and try getting the data they need by some other methods. Server-level public-private key authentication backed by a Fingerprint credential is the safest option to prevent such issues.
+Server-level public-private key authentication backed by a Fingerprint credential is the safest option to prevent such issues.
