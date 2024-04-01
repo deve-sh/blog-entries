@@ -23,13 +23,13 @@ const generateBlogPostEntry = async (docId) => {
 	const fileName = post.data().uniqueId + ".md";
 	fs.writeFileSync(fileName, postMarkdown);
 	let indexFile = fs.readFileSync("index.md", "utf-8");
-	indexFile = indexFile.split("# Hobnob - Blog Entries\n").pop();
+	indexFile = indexFile.split("# Hobnob - Blog Entries").pop().trim();
 	indexFile = `# Hobnob - Blog Entries
 
 - [${post.data().title}](${fileName})  -  ${post
 		.data()
 		.createdAt.toDate()
-		.toDateString()}${indexFile}`;
+		.toDateString()}\n${indexFile}`;
 
 	fs.writeFileSync("index.md", indexFile);
 
