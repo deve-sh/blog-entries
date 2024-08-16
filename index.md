@@ -1,5 +1,6 @@
 # Hobnob - Blog Entries
 
+- [The Comfort Of Decisions with Data](the-comfort-of-decisions-with-data.md)  -  Tue Aug 06 2024
 - [How Services like Vercel & Netlify work](how-services-like-vercel-and-netlify-work.md)  -  Mon Jul 01 2024
 - [Diving into the Engineering of Push Notifications](how-push-notifications-work.md)  -  Wed May 15 2024
 - [Inevitable Evolution: Splitting Your Frontend](inevitable-evolutions-splitting-your-frontend.md)  -  Sat Mar 09 2024
