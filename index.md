@@ -1,5 +1,6 @@
 # Hobnob - Blog Entries
 
+- [Building our own Serverless Platform](building-our-own-serverless-platform.md)  -  Thu Sep 05 2024
 - [The Comfort Of Decisions with Data](the-comfort-of-decisions-with-data.md)  -  Tue Aug 06 2024
 - [How Services like Vercel & Netlify work](how-services-like-vercel-and-netlify-work.md)  -  Mon Jul 01 2024
 - [Diving into the Engineering of Push Notifications](how-push-notifications-work.md)  -  Wed May 15 2024
