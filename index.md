@@ -1,5 +1,6 @@
 # Hobnob - Blog Entries
 
+- [The "Weird" AI Hype Train](the-weird-ai-hype-train.md)  -  Wed Sep 18 2024
 - [Building our own Serverless Platform](building-our-own-serverless-platform.md)  -  Thu Sep 05 2024
 - [The Comfort Of Decisions with Data](the-comfort-of-decisions-with-data.md)  -  Tue Aug 06 2024
 - [How Services like Vercel & Netlify work](how-services-like-vercel-and-netlify-work.md)  -  Mon Jul 01 2024
