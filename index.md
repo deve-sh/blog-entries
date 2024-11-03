@@ -1,5 +1,6 @@
 # Hobnob - Blog Entries
 
+- [Liberation from Peer Pressue](liberation-from-peer-pressure.md)  -  Mon Oct 14 2024
 - [The "Weird" AI Hype Train](the-weird-ai-hype-train.md)  -  Wed Sep 18 2024
 - [Building our own Serverless Platform](building-our-own-serverless-platform.md)  -  Thu Sep 05 2024
 - [The Comfort Of Decisions with Data](the-comfort-of-decisions-with-data.md)  -  Tue Aug 06 2024
