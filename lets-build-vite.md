@@ -1,4 +1,4 @@
-# Let's build Vite (Or Any Other Frontend Development Environment Framework)
+# Let's Build Vite
 
 ![Vite has revolutionized frontend app development](https://firebasestorage.googleapis.com/v0/b/devesh-blog-3fbfc.appspot.com/o/postimages%2Flets-build-vite%2Fprimaryimage.jpg?alt=media&token=de4af93f-a87f-4eee-88a8-d306e6954d6d)
 
@@ -6,7 +6,9 @@ Remember the days of 2017? You had to complete 20-25 steps to create a simple Re
 
 A lot of today's apps are spun up in seconds instead of a full day of chained command-line executions one after the other (Unless you're at a big company that moves at the pace of a snail, in which case, the setup time is still >15 days and takes 5 different engineers to run and get a basic repository up and running through all the approvals and checks needed 🤯).
 
-A lot of that is thanks to the introduction of development and build frameworks like [Create-React-App](https://create-react-app.dev/), and today, [Vite](https://vitejs.dev/) - Used by millions around the world to save time they can then use to build the next big thing (Trust me, I have probably left several world-changing ideas on the table simply because I didn't want to go through the extensive setup process that React repositories once took).
+A lot of that is thanks to the introduction of development and build frameworks like [Create-React-App](https://create-react-app.dev/), and today, [Vite](https://vitejs.dev/) - Used by millions around the world to save time they can then use to build the next big thing. Trust me, I have probably left several world-changing ideas on the table simply because I didn't want to go through the extensive setup process that React repositories once took.
+
+So I did what I do almost every time something fascinates me, I took a deeper look at how these environments and frontend libraries tie and gel together to form the magical developer experience we are so used to today. There's a lot of depth to every single component Vite has, and I've tried covering a few of them in this post.
 
 ### Index of this post
 
@@ -253,6 +255,8 @@ module.exports = function (dirName) {
 ```
 
 Now whenever someone runs `npx vite-clone scaffold ...`, it will generate the right boilerplate code for the project.
+
+The user can make changes as needed to the `src` folder generated for them.
 
 ### Building an app for production
 
