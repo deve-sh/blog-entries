@@ -1,5 +1,7 @@
 # Hobnob - Blog Entries
 
+- [Building a User Session Replay Tool](building-a-user-session-replay-tool.md)  -  Tue Apr 01 2025
+- [Building Personal Solutions on top of WhatsApp](building-personal-solutions-on-top-of-whatsapp.md)  -  Wed Jan 29 2025
 - [Let's build Vite](lets-build-vite.md)  -  Thu Nov 28 2024
 - [Liberation from Peer Pressue](liberation-from-peer-pressure.md)  -  Mon Oct 14 2024
 - [The "Weird" AI Hype Train](the-weird-ai-hype-train.md)  -  Wed Sep 18 2024
