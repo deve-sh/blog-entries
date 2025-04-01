@@ -22,7 +22,7 @@ With the risks and restrictions well known, builders like me will say just one t
 
 But do note: Whatever I am writing in this post is meant purely as a fun side project and not something I'm comfortable turning into a product; neither do I encourage anyone to do so. WhatsApp is built on the principle of connecting you with your loved ones. It's a side effect that we ended up using it as a means of business communication. But the core principle still stands, so don't be a means to bring something dystopian to something useful (although I might argue Meta with its AI chatbots and business API that allows businesses to spam us right now even with the restrictions by itself is the one enabling that).
 
-Now, coming back to businesses using WhatsApp, a common occurrence is the need for you to send messages to someone at a later day or time. It could be to remind them of a meeting or to follow up on something you decided weeks ahead. It's been a standard feature in almost all workplace messaging mediums, be it Slack or email (Gmail took forever but finally added this feature). But not so on WhatsApp. I'm pretty sure WhatsApp will add this feature eventually. 
+Now, coming back to businesses using WhatsApp, a common occurrence is the need for you to send messages to someone at a later day or time. It could be to remind them of a meeting or to follow up on something you decided weeks ahead. It's been a standard feature in almost all workplace messaging mediums, be it Slack or email (Gmail took forever but finally added this feature). But not so on WhatsApp. I'm pretty sure WhatsApp will add this feature eventually.
 
 Similarly, for someone who works on WhatsApp, there's never truly a clear divide between work messages and personal messages. So when your phone chimes, you don't know if it's your annoying society uncle or a customer who needs urgent help. Why not switch to a workplace messaging tool? Simple, you can do so, but your customers won't.
 
@@ -95,117 +95,70 @@ With these rules in mind, let's outline the steps for us to get the setup workin
 1. A basic Express server that supports HTTPS certificates
 
 ```js
-
-const app = require('express')();
+const app = require("express")();
 
 let listenableServerRef = app;
 
 let port = process.env.PORT || 8080;
 
 if (
-
 	process.env.SSL_FULL_CHAIN_FILE_PATH &&
-
 	process.env.SSL_PRIVATE_KEY_FILE_PATH
-
 ) {
-
 	const certificates = {
-
 		cert: fs.readFileSync(process.env.SSL_FULL_CHAIN_FILE_PATH),
 
 		key: fs.readFileSync(process.env.SSL_PRIVATE_KEY_FILE_PATH),
-
 	};
 
 	const https = require("node:https");
 
 	listenableServerRef = https.createServer(certificates, app);
-
 }
 
 if (listenableServerRef)
-
 	listenableServerRef.listen(port, onServerListeningStart);
-
 ```
 
 2. Route controllers that initialize the WhatsApp-Web.js client and store the instance in memory + the store to be exposed to the rest of the application.
 
 ```js
-
 // wwebjs/client-store.js
 
-/**
-
- * @type {null | import("whatsapp-web.js").Client}
-
- */
-
 let client = null;
-
-/**
-
- * @type {Record<string, any> | null}
-
- */
 
 let usefulClientMetadata = {};
 
 const getClient = function () {
-
 	return client || null;
-
 };
 
 const getQRCodeForClient = function () {
-
 	const client = getClient();
 
 	if (!client) return null;
 
 	if (usefulClientMetadata && usefulClientMetadata.qr)
-
 		return usefulClientMetadata.qr;
 
 	return new Promise((resolve) => {
-
 		client.once("qr", resolve);
-
 	});
-
 };
 
-const setClient = function (
-
-	/**
-
-	 * @type {import("whatsapp-web.js").Client}
-
-	 */
-
-	clt
-
-) {
-
+const setClient = function (clt) {
 	if (client)
-
 		throw new Error(
-
 			"A client for this user id is already registered. Please use that."
-
 		);
 
 	console.log("Setting client");
 
 	client = clt;
-
 };
 
 const removeClient = async function () {
-
 	try {
-
 		if (!client) return;
 
 		console.log("Destroying and deleting client");
@@ -213,43 +166,34 @@ const removeClient = async function () {
 		await client.destroy();
 
 		client = null;
-
 	} catch (error) {
-
 		console.error("Error while destroying client", error);
-
 	}
-
 };
 
 const setUsefulClientMetadata = function (key, value) {
-
 	if (!usefulClientMetadata) usefulClientMetadata = {};
 
 	usefulClientMetadata[key] = value;
-
 };
-
 ```
 
 ```js
-
 // wwebjs/setup-client.js
 
 async function setupClient() {
-
 	try {
-
-		const { Client, LocalAuth, Events: WWebEvents } = require("whatsapp-web.js");
+		const {
+			Client,
+			LocalAuth,
+			Events: WWebEvents,
+		} = require("whatsapp-web.js");
 
 		const client = new Client({
-
 			puppeteer: {
-
 				headless: process.env.NODE_ENV !== "development",
 
 				args: [
-
 					"--no-sandbox",
 
 					"--disable-setuid-sandbox",
@@ -257,55 +201,42 @@ async function setupClient() {
 					"--single-process",
 
 					"--no-zygote",
-
 				],
 
 				ignoreDefaultArgs: ["--disable-extensions"],
-
 			},
 
 			authStrategy: new LocalAuth(),
-
 		});
 
 		client.on(WWebEvents.QR_RECEIVED, (qr) => {
-
 			// Generate and scan this code with your phone
 
 			console.log("QR Code for WhatsApp Web Generated:", qr);
 
 			clientStore.setUsefulClientMetadata("qr", qr);
-
 		});
 
 		client.on(WWebEvents.READY, () => {
-
 			console.log("Client is ready!");
-
 		});
 
 		client.on(WWebEvents.AUTHENTICATED, (session) => {
-
 			console.log("Account authenticated", session);
 
 			clientStore.setUsefulClientMetadata("qr", null);
 
 			clientStore.setUsefulClientMetadata("sessionData", session);
-
 		});
 
 		client.on(WWebEvents.AUTHENTICATION_FAILURE, (session) => {
-
 			console.log("Account authenticated failed", session);
-
 		});
 
 		client.on(WWebEvents.DISCONNECTED, (reason) => {
-
 			console.log("Client disconnected", reason);
 
 			clientStore.removeClient();
-
 		});
 
 		await client.initialize();
@@ -313,57 +244,41 @@ async function setupClient() {
 		clientStore.setClient(client);
 
 		return client;
-
 	} catch (error) {
-
 		console.error("Error encountered during client run", error);
 
 		return null;
-
 	}
-
 }
-
 ```
 
 3. Now that we've set up WhatsApp-Web.js, we'll set up route controllers that provide the user with a list of available contacts + a middleware that validates the client has been initialized so the consumer doesn't hit the route without going through the QR Authorization process.
 
 ```js
-
 // middleware/validate-client-init.js
 
 const validateClientInitialized = (controller) => (req, res) => {
-
 	const { getClient } = require("../wweb/client-store");
 
 	const client = getClient();
 
 	if (!client)
-
 		return res.status(401).json({
-
 			error:
-
 				"Session for this user has not been initialized or already terminated. Please restart the session.",
-
 		});
 
 	return controller(req, res);
-
 };
 
 module.exports = validateClientInitialized;
-
 ```
 
 ```js
-
 const validateClientInitialized = require("../../middleware/validate-client-init");
 
 module.exports = validateClientInitialized(async (req, res) => {
-
 	try {
-
 		const { getClient } = require("../../wweb/client-store");
 
 		const client = getClient();
@@ -371,193 +286,116 @@ module.exports = validateClientInitialized(async (req, res) => {
 		const contacts = await client.getContacts();
 
 		return res.status(200).json({
-
 			message: "Contacts fetched successfully",
 
 			contacts,
-
 		});
-
 	} catch (error) {
-
 		return res.status(500).json({
-
-			error: "Something went wrong while fetching contacts. Please try again later",
-
+			error:
+				"Something went wrong while fetching contacts. Please try again later",
 		});
-
 	}
-
 });
-
 ```
 
 4. Let's add a scheduler class and a controller to add a new message to it. For now, it will simply add it locally.
 
 ```js
-
 // adapters/Scheduler.js
 
 const { v4 } = require("uuid");
 
-const roundToNearestMinute = function (
-
-	/**
-
-	 * @type {Date}
-
-	 */
-
-	date
-
-) {
-
+const roundToNearestMinute = function (date) {
 	const coeff = 1000 * 60;
 
 	return new Date(Math.round(date.getTime() / coeff) * coeff);
-
 };
 
 class ScheduledTasks {
-
-	/**
-
-	 * @type {{ id?: string; at: Date, message: Record<string, any> }[]}
-
-	 */
-
 	tasks = [];
 
 	constructor() {}
 
-	add(
-
-		/**
-
-		 * @type {ScheduledTasks['tasks'][number]}
-
-		 */
-
-		task
-
-	) {
-
+	add(task) {
 		const operationId = v4();
 
 		this.tasks.push({
-
 			...task,
 
 			at: roundToNearestMinute(task.at),
 
 			id: operationId,
-
 		});
 
 		return operationId;
-
 	}
 
-	remove(
-
-		/**
-
-		 * @type {string}
-
-		 */
-
-		operationId
-
-	) {
-
+	remove(operationId) {
 		this.tasks = this.tasks.filter((task) => task.id !== operationId);
 
 		return true;
-
 	}
-
 }
 
 class Scheduler {
-
 	constructor() {}
 
 	async scheduleTask(config = { at: new Date(), message: {} }) {
-
 		return { operationId: ScheduledTasks.add(config), error: null };
-
 	}
 
 	async cancelScheduledTask(operationId) {
-
 		ScheduledTasks.remove(operationId);
 
 		return { error: null };
-
 	}
 
 	async markSchedulerTaskComplete(operationId, results) {
-
 		ScheduledTasks.remove(operationId);
 
 		return { error: null };
-
 	}
 
 	async getScheduledTasks({ from, to } = {}) {
-
 		return {
-
 			error: null,
 
 			tasks: ScheduledTasks.tasks
 
 				.filter((task) => {
-
 					if (from && task.at.getTime() < from.getTime()) return false;
 
 					if (to && task.at.getTime() > to.getTime()) return false;
 
 					return true;
-
 				})
 
 				.map((task) => ({
-
 					id: task.id,
 
 					sendMessageAt: task.at,
 
 					message: task.message,
-
 				})),
-
 		};
-
 	}
-
 }
 
 module.exports = new Scheduler();
-
 ```
 
 ```js
-
 const validateClientInitialized = require("../../middleware/validate-client-init");
 
 const scheduleMessage = validateClientInitialized(async (req, res) => {
-
 	try {
-
 		const validateMessageAndChatIDRequestBody = require("../../wweb/validate-message-request-body");
 
 		const { error: validationErrorWithRequestBody } =
-
 			validateMessageAndChatIDRequestBody(req.body);
 
 		if (validationErrorWithRequestBody)
-
 			return res
 
 				.status(400)
@@ -565,55 +403,38 @@ const scheduleMessage = validateClientInitialized(async (req, res) => {
 				.json({ error: validationErrorWithRequestBody.message });
 
 		if (
-
 			!req.body.at ||
-
 			new Date(req.body.at).toString() === "Invalid Date" ||
-
 			new Date(req.body.at).getTime() < new Date().getTime()
-
 		)
-
 			return res.status(400).json({ error: "Invalid Scheduling Date/Time" });
 
 		const Scheduler = require("../../adapters/Scheduler");
 
 		const { operationId, error: errorSchedulingMessage } =
-
 			await Scheduler.scheduleTask({
-
 				at: new Date(req.body.at),
 
 				// req.body is the message data
 
 				message: req.body,
-
 			});
 
 		if (errorSchedulingMessage)
-
 			return res.status(500).json({ error: errorSchedulingMessage.message });
 
 		return res.status(201).json({ message: "Scheduled message", operationId });
-
 	} catch (error) {
-
 		console.log(error);
 
 		return res.status(500).json({
-
 			error:
-
 				"Something went wrong while scheduling message. Please try again later",
-
 		});
-
 	}
-
 });
 
 module.exports = scheduleMessage;
-
 ```
 
 5. Let's create a local CRON job that runs every minute. It checks for two things: whether the client is initialized and whether there are scheduled messages. If yes, and any of them match the current minute time, send those messages to the contacts. We can use node-cron](https://www.npmjs.com/package/node-cron) for this, which runs after the server startup is done.
@@ -744,13 +565,13 @@ const scheduledMessageSenderCRONFunction = async () => {
 
 6. Lastly, let's add authentication controllers to enforce the rules we have specified above.
 
-    - Since this app is only for personal use, we can set secret environment variables with the email and password of the user we want to authenticate with.
+   - Since this app is only for personal use, we can set secret environment variables with the email and password of the user we want to authenticate with.
 
-    - We can then create route controllers to issue [JWTs](https://jwt.io/) with [refresh tokens](https://auth0.com/blog/refresh-tokens-what-are-they-and-when-to-use-them/) to the front end.
+   - We can then create route controllers to issue [JWTs](https://jwt.io/) with [refresh tokens](https://auth0.com/blog/refresh-tokens-what-are-they-and-when-to-use-them/) to the front end.
 
-    - We can then add route middleware to validate and pass only requests with a valid JWT.
+   - We can then add route middleware to validate and pass only requests with a valid JWT.
 
-### Additional: Making the setup compatible with the cloud 
+### Additional: Making the setup compatible with the cloud
 
 If you want to use the cloud with this setup, more power to you. You could even be doing this to build a product out of WhatsApp-Web.js. In this case, I highly recommend keeping customer data extremely secure and making no compromises, as WhatsApp, when misused, can lead to some terrible outcomes, not just for the customer but also for the ones who are linked to their WhatsApp accounts indirectly.
 
@@ -778,7 +599,7 @@ After we've set up the server and hosted it somewhere it can run reliably, let's
 
 You could build a front end that interacts with your server, fetches contacts, maintains a list of the reminders, and allows you to create, modify, or remove them -> Tedious, but pleasant if you plan to use this daily.
 
-- You could simply use the REST API endpoints we created to authenticate and then  -> Straightforward, less time-consuming, or simply because you're hardcore like me and prefer the JSON outputs of REST APIs. 😛
+- You could simply use the REST API endpoints we created to authenticate and then -> Straightforward, less time-consuming, or simply because you're hardcore like me and prefer the JSON outputs of REST APIs. 😛
 
 For now, let's use the REST API. Simple cURL commands to authenticate and schedule messages are all that would be needed.
 
