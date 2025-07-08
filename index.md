@@ -1,5 +1,6 @@
 # Hobnob - Blog Entries
 
+- [The Road to Agentic AI Assistants](the-road-to-agentic-ai-assistants.md)  -  Mon Jun 30 2025
 - [Building Firebase Realtime Database](building-firebase-realtime-database.md)  -  Thu Jun 05 2025
 - [Building a User Session Replay Tool](building-a-user-session-replay-tool.md)  -  Tue Apr 01 2025
 - [Building Personal Solutions on top of WhatsApp](building-personal-solutions-on-top-of-whatsapp.md)  -  Wed Jan 29 2025
