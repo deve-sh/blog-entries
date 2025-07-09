@@ -2,27 +2,27 @@
 
 ![Photo by Matheus Bertelli from Pexels](https://firebasestorage.googleapis.com/v0/b/devesh-blog-3fbfc.appspot.com/o/postimages%2Fthe-road-to-agentic-ai-assistants%2Fprimaryimage.jpg?alt=media&token=dcca8b1f-ced6-41a8-ac91-96d6c943afbd)
 
-A friend of mine was booking a ride a few days ago on [Ola's app](https://www.olacabs.com/), and after a thousand popups and ads that spring up for stuff that is completely unnecessary or justifiable from ordering food to personal loans before you even get to the screen to select your location (Seriously, who wants to get a 10 lakh rupee personal loan when trying to book a cab?).
+A friend of mine was booking a ride a few days ago on [Ola's app](https://www.olacabs.com/). After a thousand popups and ads that spring up for stuff that is completely unnecessary or justifiable from ordering food to personal loans before you even get to the screen to select your location, we were in (Seriously, who wants to get a 10 lakh rupee personal loan when trying to book a cab?).
 
-The app showed us one more ad above the location selector. But this time, it was for an Agentic AI Assistant that Ola had developed which could order food for you, hail rides for you etc. Functions that were available inside the Ola app already but you had to work through them.
+The app still showed us one more ad above the location selector. But this time, it was for an Agentic AI Assistant that Ola had developed which could order food for you, hail rides for you etc. Functions that were available inside the Ola app already but given how hard it was to get to that point, I wasn't surprised we need assistants for this.
 
-Ola is not a trustworthy company, and the allure of Agentic AI Assistants is nothing new. We know Jarvis or Friday from Iron Man, we know about the million Python projects that do a basic version of speech recognition with pre-filled commands or basic Natural Language Processing but we haven't seen true mass market agentic assistants yet.
+This although got me thinking, the allure of Agentic AI Assistants is nothing new. We know Jarvis or Friday from Iron Man, we know about the million Python projects that do a basic version of speech recognition with pre-filled commands or basic Natural Language Processing.
 
-With the advent of Large Language Models, how does this change? And why aren't we seeing more Agentic AI Assistants that can do a lot more across a lot more verticals of life? And what is the road to building them with LLMs?
+Why haven't we seen true mass market agentic assistants yet? With the advent of Large Language Models, shouldn't this be a reality by now? Why aren't we seeing more Agentic AI Assistants that can do a lot more across a lot more verticals of life? And what is the road to building them from here?
 
 This post is about trying to answer those questions. Let's dive in.
 
 ### First off, what is an "Agentic AI Assistant"?
 
-When you first watched Iron Man, be it in the theatres in 2008 or much later as part of an Avengers movie. What stood out for him was his tech, the fact that he could speak a command and Jarvis or Friday (And much later, E.D.I.T.H) would give him the answers - was way cooler than the Batman and Alfred dynamic.
+When you first watched Iron Man, be it in the theatres in 2008 or much later as part of an Avengers movie. What stood out for him was his tech, the fact that he could speak a command and Jarvis or Friday (And much later, E.D.I.T.H) would give him the answers. This was way cooler than any Batman and Alfred dynamic.
 
-Since the dawn of civilization, humans have been trying to build capabilities where you don't need another human to understand your commands and do those things for you. This is where "Agentic AI Assistants" come in.
+Since the dawn of civilization (At least technology), humans have been trying to build capabilities where you don't need another human to understand your commands and do those things for you. This is where "Agentic AI Assistants" come in.
 
 Agentic refers to a software having "agency" or "capability" to perform something without much intervention.
 
 Assistant is what Alfred is to Batman (More of a butler but you get the point), helps him out with his day and his crime-fighting.
 
-And last, AI is a broad term that today is a buzzword for Large-Language-Models, i.e: You type or speak something and a Machine Learning model can understand the context of what you're trying to say and get it done. So it can then go around with its agency to get it done by the means it deems most optimal.
+And lastly, AI is a broad term that today is a buzzword for Large-Language-Models trained on human language built to understand what you're saying, i.e: You type or speak something and a model can understand the context of what you're trying to say and get it done. So it can then go around with its agency to get it done by the means it deems most optimal.
 
 Do note that when one talks about Agentic AI Assistants, the three words are individual components that are connected to each other. The AI is responsible for understanding speech or text prompted to it (I.E: Things like "Order pizza for me from the closest Domino's") and then translating it into machine instructions for the computer to execute, the assistant is the voice interface or the textbox and chat screen you type these commands into and the agent part are the available APIs which plug an order into Domino's servers.
 
@@ -34,13 +34,13 @@ We'll look at the individual stacks and the challenges with each in this post.
 
 ### We've had Google Assistant, Alexa and others for a long time? Why is this time any different?
 
-I remember the announcement of Google Assistant (I am not old enough to be conscious about the release of Siri unfortunately), just being able to speak something like "Okay Google, what's the weather right now" and it being able to answer that question for you and a million other questions, regardless of the use case, sounded like a dream.
+I remember the announcement of Google Assistant (I was not old enough to care during the release of Siri unfortunately), just being able to speak something like "Okay Google, what's the weather right now?" and it being able to answer that question for you and a million other questions, regardless of the use case, sounded like a dream.
 
 The end goal, of a digital assistant like Google Assistant, Alexa or Samsung's Bixby is that developers recognize the potential of voice commands and build plugins for these assistants in their apps. I.E: Someone being able to say "Play XYZ song on Spotify" and Google Assistant plugs in to Spotify to play the song requested by the user.
 
 But there's a problem, actually a few of them:
 - Anyone who's lived through the evolution of something like Amazon's Alexa or Apple's Siri knows that their voice capabilities have gotten worse, and not better. This is WHILE Large Language Models have gotten incredible at recognizing voice context.
-- Even a decade later, not all apps have integrations for these assistants.
+- Even over a decade later, not all apps have integrations for these assistants.
 
 There is no clear answer to why the first point stands true. Why the second is not true is fairly straightforward: Digital assistant integrations are "pull" in nature, you ask developers to build integrations for your assistant. Something not every team or app has bandwidth and resources for, or even the broad use-cases to justify spending time on building something not everyone will use.
 
@@ -54,17 +54,17 @@ Better yet? This is not limited to voice, they can do so via "prompts" or all so
 
 While we would love to think of a world where everything we speak or type is available to us at a fingertip, that isn't the world we live in. In the world today, APIs for even famous apps are closed to anyone outside (Either that or there's no documentation which is almost equally unfruitful) or there don't exist APIs in the first place.
 
-Another problem you can see today is an extension of what we talked above, most "AI Agents" being built are built in a single vertical or a single operational space, i.e: They can either work in a specific business are (Accounting Agents, Documentation Agents, Coding Agents etc) or work on data from a single company (Agents built by something like AWS for AWS related tasks etc).
+Another problem you can see today is an extension of what we talked above, most "AI Agents" being built are built in a single vertical or a single operational space, i.e: They can either work in a specific business area (Accounting Agents, Documentation Agents, Coding Agents etc) or work on data from a single company (Agents built by something like AWS for AWS related tasks etc).
 
 The second problem is very easily solvable by the abstraction of agents. You have one agent that acts as a manager/delegation layer for which agent is right for the job the user wants to execute.
 
-The first problem, however, is very difficult to solve. If the API is not available, services that try building agents try working around this limitation by automation scripts using tools like Playwright's version of Chromium (which Chrome is built on) which aren't super reliable and constantly fall under problems caused by Captchas.
+The first problem, however, is much more difficult to solve. If the API is not available, services that try building agents try working around this limitation by automation scripts using tools like [Playwright's](http://playwright.dev/) version of Chromium (which Chrome is built on) which aren't super reliable and constantly fall under problems caused by Captchas.
 
 The first problem cannot be solved until all teams at all notable apps take an API-first approach to their problems and don't have an incentive to expose their APIs for certain actions (Which isn't a great deal, because for someone like Amazon to make its APIs available to Public AI Agents, means taking away visitors from their homepage where they sell ads, leading to heavy losses for them).
 
-On top of this, there are other issues plaguing AI Agents today:
-- Context-Window limitations for LLMs: Prompts, system context or history provided to an LLM can only be of a limited length, causing problems when it gets too large or just fails and consumes a lot of compute.
-- Chain-of-thought length limitations: We'll look at what this is, and what this problem encompasses in a coming section.
+On top of this, there are other issues plaguing AI Agents today in the context of large-language-models:
+- Context-Window limitations: Prompts, system context or history provided to an LLM can only be of a limited length, causing problems when it gets too large or just fails and consumes a lot of compute.
+- Chain-of-thought limitations: We'll look at what this is, and what this problem encompasses in a coming section.
 
 ### Enter Operators
 
