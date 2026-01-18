@@ -1,5 +1,6 @@
 # Hobnob - Blog Entries
 
+- [It's all a game of how you look at yourself](its-all-a-game-of-how-you-look-at-yourself.md)  -  Sun Jan 04 2026
 - [Burnout: Not what you think](burnout-not-what-you-think.md)  -  Fri Oct 10 2025
 - [The Road to Agentic AI Assistants](the-road-to-agentic-ai-assistants.md)  -  Mon Jun 30 2025
 - [Building Firebase Realtime Database](building-firebase-realtime-database.md)  -  Thu Jun 05 2025
