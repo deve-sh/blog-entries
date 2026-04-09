@@ -1,5 +1,6 @@
 # Hobnob - Blog Entries
 
+- [Start. Figure things out as you go.](start-and-figure-things-out-as-you-go.md)  -  Fri Apr 09 2026
 - [Let's work on the fearmongering bit, shall we?](why-are-we-fearmongering.md)  -  Sat Mar 14 2026
 - [It's all a game of how you look at yourself](its-all-a-game-of-how-you-look-at-yourself.md)  -  Sun Jan 04 2026
 - [Burnout: Not what you think](burnout-not-what-you-think.md)  -  Fri Oct 10 2025
