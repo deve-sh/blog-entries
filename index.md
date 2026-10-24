@@ -1,5 +1,6 @@
 # Hobnob - Blog Entries
 
+- [I finally understood why people hate their jobs](why-people-hate-their-jobs.md)  -  Thu Sep 24 2026
 - [Start. Figure things out as you go.](start-and-figure-things-out-as-you-go.md)  -  Fri Apr 09 2026
 - [Let's work on the fearmongering bit, shall we?](why-are-we-fearmongering.md)  -  Sat Mar 14 2026
 - [It's all a game of how you look at yourself](its-all-a-game-of-how-you-look-at-yourself.md)  -  Sun Jan 04 2026
